@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css'
 import  { IFileInfo } from 'react-csv-reader';
 import { FileInput } from '../components/FileInput';
 import { withRouter } from 'react-router-dom';

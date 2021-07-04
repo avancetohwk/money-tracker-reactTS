@@ -14,7 +14,6 @@ export interface IFileInputProps {
 }
 
 export class FileInput extends React.Component<IFileInputProps, IFileInputState> {
-    private _selection: Selection;
 
     constructor(props) {
         super(props);

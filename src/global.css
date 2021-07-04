@@ -1,0 +1,27 @@
+
+.flex-centre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.glassmorphism-green,.glassmorphism-black{
+   
+    -webkit-backdrop-filter: blur(0.3em);
+    backdrop-filter: blur(0.3em);
+    
+}
+
+.glassmorphism-green{
+    background: rgba(84, 120, 106, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    
+    
+}
+.glassmorphism-black{
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 2px 2px 4px rgb(0 0 0 / 20%), inset -2px -2px 4px rgb(255 255 255 / 10%), 2px 2px 4px rgb(0 0 0 / 20%), -2px -2px 4px rgb(255 255 255 / 10%);
+}

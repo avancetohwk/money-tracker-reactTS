@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import { FileInput } from './components/FileInput';
+import './App.scss';
 import CSVReader, { IFileInfo } from 'react-csv-reader';
 import { IWordcloudItem, Wordcloud } from './components/Wordcloud';
 import {Router, Switch,Route} from 'react-router-dom';
@@ -8,6 +7,9 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import history from './utils/history';
 import { Suspense } from 'react';
+import Sidebar from './components/Sidebar';
+import styled from 'styled-components';
+
 
 interface IFinanceTrackings{
   date:Date,
@@ -18,7 +20,19 @@ interface IFinanceTrackings{
   currency:string,
   description:string
 }
-
+// const Pages = styled.div`
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   h1 {
+//     font-size: calc(2rem + 2vw);
+//     background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%);
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//   }
+// `;
 
 class App extends Component {
   
@@ -69,6 +83,9 @@ class App extends Component {
     // )
     return (
       <>
+       {/* <Sidebar />
+      <Pages>
+      </Pages> */}
       <Router history={history}>
         <Suspense fallback="loading...">
           <Switch>

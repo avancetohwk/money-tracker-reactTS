@@ -1,0 +1,42 @@
+.App{
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+}
+
+section{
+    width: 100vw;
+}
+
+#graph-section{
+    height:60%;
+    position: relative;
+}
+
+#graph-card{
+    position: absolute;
+    bottom: 0;
+    width: 80vw;
+    /* margin:10% 0 10% 0; */
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 85%;
+    border-radius: 1rem 1rem 0 0;
+    background-color: #EEE;
+}
+
+#category-section{
+    height:40%;
+    background-color:var(--primary);
+}
+
+@media screen and (min-width:960px){
+    #graph-section{
+        height:50%;
+    }
+    
+    #category-section{
+        height:50%
+    }
+}
