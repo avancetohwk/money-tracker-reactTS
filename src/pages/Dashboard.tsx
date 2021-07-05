@@ -7,6 +7,11 @@ import '../global.css'
 import Sidebar from '../components/Sidebar';
 import styled from "styled-components";
 import CategoryCards from '../components/Stackcards';
+import CategoryChart from '../components/CategoryChart';
+import IncomeChart from '../components/IncomeChart';
+import CategoryChips from '../components/CategoryChips';
+import moment from 'moment';
+import CombinedChart from '../components/CombinedChart';
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -19,20 +24,6 @@ interface IFinanceTrackings{
   description:string
 }
 
-// const Pages = styled.div`
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   h1 {
-//     font-size: calc(2rem + 2vw);
-//     background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%);
-//     -webkit-background-clip: text;
-//     -webkit-text-fill-color: transparent;
-//   }
-// `;
-
 
 class Dashboard extends Component<RouteComponentProps> {
     constructor(props) {
@@ -40,7 +31,10 @@ class Dashboard extends Component<RouteComponentProps> {
 
     }
   componentDidMount(){
-      this.setState({wordcloudWords: this.props.location.state})
+    console.log(this.props)
+    this.getIncomeChartData(this.props.location.state);
+      // this.setState({allFinanceTrackings: this.props.location.state})
+      // console.log(this.state)
   }
 
   wordcloudWords: IWordcloudItem[];
@@ -55,10 +49,15 @@ class Dashboard extends Component<RouteComponentProps> {
 
 
   state={
-    wordcloudWords: null
+    wordcloudWords: null,
+    incomeChartData:null,
+    incomeChartLabel:null,
+    allFinanceTrackings: null,
+    combinedChartData:null
   }
 
   render() {
+    const { incomeChartData,combinedChartData } = this.state;
     return (
         // <FileInput onFileUploaded={this._onUpload}></FileInput>
         <div className="App">
@@ -88,26 +87,51 @@ class Dashboard extends Component<RouteComponentProps> {
               <input type="radio" className="btn-check" name="btnradio" id="btnradioyear" autoComplete="off"></input>
               <label className="btn btn-outline-primary" htmlFor ="btnradioyear">Yea</label>
             </div>
-              <div id="graph-card" style={{position:'relative'}}>
-                
+              <div id="graph-card" >
+              {this.state.incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
+              {this.state.combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
               </div>
             </section>
             <section id="category-section">
-              <div style={{display:"flex",height:'100%',padding:'1em 0'}} >
+              <div style={{display:"flex",padding:'1em 0'}} >
                 <div className="col-6">
-                <h2>bottom</h2>
+                  <CategoryChart></CategoryChart>
                 </div>
                 <div className="col-6">
                   <CategoryCards/>        
+                  
                 </div>
               </div>
-                  
+              <CategoryChips></CategoryChips>
               </section>
         </div>
       
 
       
     )
+  }
+
+  getIncomeChartData = (data)=>{
+    var spendingGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')<0).reduce((p,c)=>{
+      let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
+      let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+      p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
+      return p
+    },{})
+
+    var incomeGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')>0).reduce((p,c)=>{
+      let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
+      let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+      p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
+      return p
+    },{})
+    console.log(data.filter(t=>t.amount>0))
+    var incomeData = Object.keys(incomeGroup).map(g=>{return incomeGroup[g]}).sort((a,b)=>{return moment(a,"MMM YYYY")<moment(b,"MMM YYYY")?-1:1 })
+    var spendingsData = Object.keys(spendingGroup).map(g=>{return spendingGroup[g]}).sort((a,b)=>{return moment(a,"MMM YYYY")<moment(b,"MMM YYYY")?-1:1 })
+    console.log(spendingGroup)
+
+    //var incomeChartData = data.map(t=> Math.abs(t.amount))
+    this.setState({combinedChartData:[incomeData,spendingsData]})
   }
   
 }

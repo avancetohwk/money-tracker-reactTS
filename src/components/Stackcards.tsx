@@ -1,11 +1,47 @@
 import React, { Component } from 'react'
 import './Stackcards.scss'
-import './Stackcards.js'
+import $ from 'jquery';
 class CategoryCards extends Component {
   constructor(props){
     super(props)
     
   }
+
+
+  componentDidMount(){
+    function detect_active (){
+      // get active
+      var get_active = $("#dp-slider .dp_item:first-child").data("class");
+      $("#dp-dots li").removeClass("active");
+      $("#dp-dots li[data-class="+ get_active +"]").addClass("active");
+    } 
+
+
+    $("body").on("click", "#dp-slider .dp_item:not(:first-child)", function(){
+      var get_slide = $(this).attr('data-class');
+      $("#dp-slider .dp_item[data-class=" + get_slide + "]").hide().prependTo("#dp-slider").fadeIn();
+      $.each($('.dp_item'), function (index, dp_item) {
+        $(dp_item).attr('data-position', index + 1);
+      });
+
+      detect_active();
+    });
+
+
+    $("body").on("click", "#dp-slider .dp_item:first-child", function(){
+      var get_slide = +($(this).attr('data-class'));
+      get_slide = get_slide>3?1:get_slide+1;
+      $("#dp-slider .dp_item[data-class=" + get_slide + "]").hide().prependTo("#dp-slider").fadeIn();
+      
+      $.each($('.dp_item'), function (index, dp_item) {
+        $(dp_item).attr('data-position', index + 1);
+      });
+
+      detect_active();
+    });
+  }
+
+
 
   render() {
     return (
@@ -19,13 +55,10 @@ class CategoryCards extends Component {
                         <div className="dp_item" data-class="1" data-position="1">
                             <div className="dp-content">
 
-                              <h2>Slide 1</h2>
-                              <p> This is Slide 1 </p>
-                              <a href="#" className="site-btn">Read More…</a>
+                            <h2>Slide 2</h2>
+                            <p> This is Slide 2 </p>
+                            <a href="#" className="site-btn">Read More…</a>
                             </div>
-                            {/* <div className="dp-img">
-                            <img className="img-fluid" src="https://placeimg.com/821/739/any" alt="investing"></img>
-                            </div> */}
                         </div>
 
                         <div className="dp_item" data-class="2" data-position="2">
@@ -35,9 +68,6 @@ class CategoryCards extends Component {
                             <p> This is Slide 2 </p>
                             <a href="#" className="site-btn">Read More…</a>
                             </div>
-                            {/* <div className="dp-img">
-                            <img className="img-fluid" src="https://placeimg.com/821/738/any" alt="investing"></img>
-                            </div> */}
                         </div>
 
                         <div className="dp_item" data-class="3" data-position="3">
@@ -47,9 +77,6 @@ class CategoryCards extends Component {
                             <p> This is Slide 3 </p>
                             <a href="#" className="site-btn">Read More…</a>
                             </div>
-                            {/* <div className="dp-img">
-                            <img className="img-fluid" src="https://placeimg.com/821/737/any" alt="investing"></img>
-                            </div> */}
                         </div>
 
                         <div className="dp_item" data-class="4" data-position="4">
@@ -59,17 +86,8 @@ class CategoryCards extends Component {
                                 <p> This is Slide 4 </p>
                                 <a href="#" className="site-btn">Read More…</a>
                             </div>
-                            {/* <div className="dp-img">
-                                <img className="img-fluid" src="https://placeimg.com/821/736/any" alt="investing"></img>
-                            </div> */}
                         </div>
                     </div>
-                    {/* <ul id="dp-dots">
-                      <li data-class="1" className="active"></li>
-                      <li data-class="2"></li>
-                      <li data-class="3"></li>
-                      <li data-class="4"></li>
-                    </ul> */}
                 </div>
               </div>
             </div>

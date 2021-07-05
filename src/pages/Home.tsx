@@ -23,7 +23,8 @@ class Home extends Component {
   allFinanceTrackings: IFinanceTrackings[];
 
   state={
-    wordcloudWords: null
+    wordcloudWords: null,
+    allFinanceTrackings:null
   }
 
   render() {
@@ -40,7 +41,7 @@ class Home extends Component {
   navigateToDashboard = async()=> {
     console.log(this.props)
     console.log(this.state)
-    history.push("/dashboard", this.state.wordcloudWords);
+    history.push("/dashboard", this.state.allFinanceTrackings);
   }
 
   
@@ -52,7 +53,7 @@ class Home extends Component {
       return p
     },{})
     var wordcloudWords = Object.keys(groups).map(g=>{return {text: g, value: groups[g].Frequency, amount: groups[g].Sum, frequency: groups[g].Frequency}});
-    this.setState({wordcloudWords: wordcloudWords})
+    this.setState({wordcloudWords: wordcloudWords,allFinanceTrackings: this.allFinanceTrackings})
     this.navigateToDashboard()
   }
 }
