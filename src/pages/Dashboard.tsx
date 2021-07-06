@@ -87,7 +87,7 @@ class Dashboard extends Component<RouteComponentProps> {
               <input type="radio" className="btn-check" name="btnradio" id="btnradioyear" autoComplete="off"></input>
               <label className="btn btn-outline-primary" htmlFor ="btnradioyear">Yea</label>
             </div>
-              <div id="graph-card" >
+              <div id="graph-card" className="neumorphism inset" >
               {this.state.incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
               {this.state.combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
               </div>

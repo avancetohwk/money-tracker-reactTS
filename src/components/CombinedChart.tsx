@@ -33,14 +33,46 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
         console.log(data)
         if (typeof this.myChart !== "undefined") this.myChart.destroy();
 
+        // const totalDuration = 10000;
+        // const delayBetweenPoints = totalDuration / data.length;
+        // const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+        // const animation = {
+        // x: {
+        //         type: 'number',
+        //         easing: 'linear',
+        //         duration: delayBetweenPoints,
+        //         from: NaN, // the point is initially skipped
+        //         delay(ctx) {
+        //         if (ctx.type !== 'data' || ctx.xStarted) {
+        //             return 0;
+        //         }
+        //         ctx.xStarted = true;
+        //         return ctx.index * delayBetweenPoints;
+        //         }
+        //     },
+        //     y: {
+        //         type: 'number',
+        //         easing: 'linear',
+        //         duration: delayBetweenPoints,
+        //         from: previousY,
+        //         delay(ctx) {
+        //         if (ctx.type !== 'data' || ctx.yStarted) {
+        //             return 0;
+        //         }
+        //         ctx.yStarted = true;
+        //         return ctx.index * delayBetweenPoints;
+        //         }
+        //     }
+        // };
+
         let gradientLine = myChartRef
             .createLinearGradient(0, 0, graphWidth * 2, 0);
-            gradientLine.addColorStop(0, "rgb(76, 149, 150, 1)");
-            gradientLine.addColorStop(0.45, "rgb(253, 210, 97, 1)");
-            gradientLine.addColorStop(0.55, "rgb(255, 255, 255, 1)");
+        gradientLine.addColorStop(0, "rgb(76, 149, 150, 1)");
+        gradientLine.addColorStop(0.45, "rgb(253, 210, 97, 1)");
+        gradientLine.addColorStop(0.55, "rgb(255, 255, 255, 1)");
 
         let spendingsGradientLine = myChartRef
-        .createLinearGradient(0, 0, graphWidth * 2, 0);
+            .createLinearGradient(0, 0, graphWidth * 2, 0);
         spendingsGradientLine.addColorStop(0, "rgb(255, 0, 110, 0.2)");
         spendingsGradientLine.addColorStop(0.5, "rgb(255, 0, 110, 0.35)");
         spendingsGradientLine.addColorStop(1, "rgb(255, 0, 110, 0.7)");
@@ -74,9 +106,39 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
                 maintainAspectRatio: false,
                 elements: {
                     point:{
-                        //radius: 0
+                        radius: 0
                     }
                 },
+                // animations:{
+                //     x: {
+                //             type: 'number',
+                //             easing: 'linear',
+                //             duration: delayBetweenPoints,
+                //             from: NaN, // the point is initially skipped
+                //             delay(myChartRef) {
+                //                 var ctx= myChartRef as any;
+                //                 if (ctx.type !== 'data' || ctx.xStarted) {
+                //                     return 0;
+                //                 }
+                //                 ctx.xStarted = true;
+                //                 return ctx.index * delayBetweenPoints;
+                //             }
+                //         },
+                //         y: {
+                //             type: 'number',
+                //             easing: 'linear',
+                //             duration: delayBetweenPoints,
+                //             from: previousY,
+                //             delay(myChartRef) {
+                //                 var ctx= myChartRef as any;
+                //                 if (ctx.type !== 'data' || ctx.yStarted) {
+                //                     return 0;
+                //                 }
+                //                 ctx.yStarted = true;
+                //                 return ctx.index * delayBetweenPoints;
+                //             }
+                //         }
+                //     },
                 scales: {
                     xAxes: {
                         ticks: { display: false },
@@ -86,7 +148,7 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
                         }
                     },
                     yAxes: {
-                        //ticks: { display: false },
+                        ticks: { display: false },
                         grid: {
                             display: false,
                             drawBorder: false
