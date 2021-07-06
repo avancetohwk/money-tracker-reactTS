@@ -7,7 +7,7 @@ export default class CategoryChips extends React.Component{
     render(){
         return(
             <div style={{overflow:'none'}}>
-                <div style={{display:'flex',justifyContent:'space-evenly',overflowX:'scroll'}} >
+                <div style={{display:'flex',overflowX:'auto'}} >
                 {this.array.map(a => {     
                     console.log("Entered");                 
                     // Return the element. Also pass key     

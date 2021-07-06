@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { IWordcloudItem, Wordcloud } from '../components/Wordcloud';
 import {withRouter} from 'react-router-dom'
-import './Dashboard.css';
+import './Dashboard.scss';
 import { RouteComponentProps } from '@reach/router';
 import '../global.css'
 import Sidebar from '../components/Sidebar';
@@ -12,6 +12,7 @@ import IncomeChart from '../components/IncomeChart';
 import CategoryChips from '../components/CategoryChips';
 import moment from 'moment';
 import CombinedChart from '../components/CombinedChart';
+import history from '../utils/history';
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -32,7 +33,11 @@ class Dashboard extends Component<RouteComponentProps> {
     }
   componentDidMount(){
     console.log(this.props)
+    if(this.props.location.state == undefined){
+      history.push("/");
+    }
     this.getIncomeChartData(this.props.location.state);
+    this.getCategoryChartData(this.props.location.state)
       // this.setState({allFinanceTrackings: this.props.location.state})
       // console.log(this.state)
   }
@@ -53,15 +58,15 @@ class Dashboard extends Component<RouteComponentProps> {
     incomeChartData:null,
     incomeChartLabel:null,
     allFinanceTrackings: null,
-    combinedChartData:null
+    combinedChartData:null,
+    categoryChartData:null
   }
 
   render() {
-    const { incomeChartData,combinedChartData } = this.state;
+    const { incomeChartData,combinedChartData,categoryChartData } = this.state;
     return (
         // <FileInput onFileUploaded={this._onUpload}></FileInput>
         <div className="App">
-            <h1>Dashboard</h1>
             {/* <Sidebar /> */}
             
             {/* <div style={{position:'absolute',opacity:0.2,height: '100%', width: '100%', zIndex:-1}}>
@@ -74,28 +79,28 @@ class Dashboard extends Component<RouteComponentProps> {
             </div> */} 
             
             <section id="graph-section">
-            <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-              <input type="radio" className="btn-check" name="btnradio" id="btnradioall" autoComplete="off" ></input>
-              <label className="btn btn-outline-primary" htmlFor ="btnradioall">All</label>
+              <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" className="btn-check" name="btnradio" id="btnradioall" autoComplete="off" ></input>
+                <label className="btn btn-outline-primary" htmlFor ="btnradioall">All</label>
 
-              <input type="radio" className="btn-check" name="btnradio" id="btnradioday" autoComplete="off"></input>
-              <label className="btn btn-outline-primary" htmlFor ="btnradioday">Day</label>
+                {/* <input type="radio" className="btn-check" name="btnradio" id="btnradioday" autoComplete="off"></input>
+                <label className="btn btn-outline-primary" htmlFor ="btnradioday">Day</label> */}
 
-              <input type="radio" className="btn-check" name="btnradio" id="btnradiomonth" autoComplete="off"></input>
-              <label className="btn btn-outline-primary" htmlFor ="btnradiomonth">Month</label>
+                <input type="radio" className="btn-check" name="btnradio" id="btnradiomonth" autoComplete="off"></input>
+                <label className="btn btn-outline-primary" htmlFor ="btnradiomonth">Month</label>
 
-              <input type="radio" className="btn-check" name="btnradio" id="btnradioyear" autoComplete="off"></input>
-              <label className="btn btn-outline-primary" htmlFor ="btnradioyear">Yea</label>
-            </div>
-              <div id="graph-card" className="neumorphism inset" >
-              {this.state.incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
-              {this.state.combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
+                <input type="radio" className="btn-check" name="btnradio" id="btnradioyear" autoComplete="off"></input>
+                <label className="btn btn-outline-primary" htmlFor ="btnradioyear">Year</label>
               </div>
+                <div id="graph-card" className="neumorphism inset" >
+                {this.state.incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
+                {this.state.combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
+                </div>
             </section>
-            <section id="category-section">
-              <div style={{display:"flex",padding:'1em 0'}} >
+            <section id="category-section" style={{borderRadius:"1em 1em 0 0"}}>
+              <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism dark inset" >
                 <div className="col-6">
-                  <CategoryChart></CategoryChart>
+                {this.state.categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                 </div>
                 <div className="col-6">
                   <CategoryCards/>        
@@ -112,14 +117,14 @@ class Dashboard extends Component<RouteComponentProps> {
   }
 
   getIncomeChartData = (data)=>{
-    var spendingGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')<0).reduce((p,c)=>{
+    var spendingGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')<0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
       let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
       let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
 
-    var incomeGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')>0).reduce((p,c)=>{
+    var incomeGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')>0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
       let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
       let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
@@ -132,6 +137,24 @@ class Dashboard extends Component<RouteComponentProps> {
 
     //var incomeChartData = data.map(t=> Math.abs(t.amount))
     this.setState({combinedChartData:[incomeData,spendingsData]})
+  }
+
+  getCategoryChartData = (data)=>{
+    var categoryGroup = data.filter(t=>t.category == "Allowance" && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
+      let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
+      let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+      p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
+      return p
+    },{})
+    var values = [];
+    var labels=[];
+    Object.keys(categoryGroup).forEach(g=>{
+      values.push(categoryGroup[g].y)
+      labels.push(g)
+    })
+    var categoryData = {values:values, labels:labels};
+    console.log(categoryData)
+    this.setState({categoryChartData:categoryData})
   }
   
 }

@@ -1,13 +1,23 @@
 
 
 
-.App {
+.App{
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light);
   text-align: center;
 }
+
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+
+section{
+  padding: 0.5em;
 }
 
 @media (prefers-reduced-motion: no-preference) {

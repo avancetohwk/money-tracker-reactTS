@@ -45,12 +45,12 @@ class CategoryCards extends Component {
 
   render() {
     return (
-        <div className="flex-centre">
-          <div style={{width:'100%'}}>
-            <div className="container" style={{maxWidth:'1400px',margin: '0 auto'}}>
-              <div id="slider">
-                <div className="dp-wrap">
-                    <div id="dp-slider">
+        // <div className="flex-centre">
+        //   <div style={{width:'100%'}}>
+            <div className="container" id="dp-slider">
+              {/* <div id="slider">*/}
+                {/* <div className="dp-wrap"> 
+                    <div id="dp-slider"> */}
 
                         <div className="dp_item" data-class="1" data-position="1">
                             <div className="dp-content">
@@ -87,12 +87,12 @@ class CategoryCards extends Component {
                                 <a href="#" className="site-btn">Read More…</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-              </div>
+                    {/* </div>
+                 </div> */}
+              {/*</div> */}
             </div>
-          </div>
-        </div>
+        //   </div>
+        // </div>
     )
   }
 }

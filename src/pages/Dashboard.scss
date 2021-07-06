@@ -1,9 +1,3 @@
-.App{
-    height:100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--background);
-}
 
 section{
     width: 100vw;
@@ -12,15 +6,19 @@ section{
 #graph-section{
     height:60%;
     position: relative;
+    padding-bottom: 0;
+
+    .btn-group{
+        margin-bottom: 0.5em;
+    }
 }
 
 #graph-card{
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
     width: 80vw;
-    /* margin:10% 0 10% 0; */
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 0); */
     height: 85%;
     border-radius: 1rem 1rem 0 0;
     background-color: #EEE;

@@ -33,180 +33,180 @@
     box-shadow: 5px 5px 10px #c4c4c4, -5px -5px 10px #ffffff;
 }
 
-    .neumorphism.flat {
-        background: var(--light);
-    }
+.neumorphism.flat {
+    background: var(--light);
+}
 
-    .neumorphism.pressed {
-        background: var(--light);
-        box-shadow: inset 5px 5px 10px #c4c4c4, inset -5px -5px 10px #ffffff;
-    }
+.neumorphism.pressed {
+    background: var(--light);
+    box-shadow: inset 5px 5px 10px #c4c4c4, inset -5px -5px 10px #ffffff;
+}
 
-    .neumorphism.inset {
-        background: var(--light);
-        box-shadow: inset 1px 1px 5px #c4c4c4, inset -1px -1px 5px #ffffff;
-    }
+.neumorphism.inset {
+    background: 'transparent';
+    box-shadow: inset 1px 1px 5px #c4c4c4, inset -1px -1px 5px #ffffff;
+}
 
-    .neumorphism.concave {
-        background: linear-gradient(145deg, #dddddd, #ffffff);
-    }
+.neumorphism.concave {
+    background: linear-gradient(145deg, #dddddd, #ffffff);
+}
 
-    .neumorphism.convex {
-        background: linear-gradient(145deg, #ffffff, #dddddd);
-    }
+.neumorphism.convex {
+    background: linear-gradient(145deg, #ffffff, #dddddd);
+}
 
-    .neumorphism.bevel {
-        padding: 0.3125rem;
-        background: var(--light);
-        box-shadow: 5px 5px 10px #c4c4c4, -5px -5px 10px #ffffff;
-    }
+.neumorphism.bevel {
+    padding: 0.3125rem;
+    background: var(--light);
+    box-shadow: 5px 5px 10px #c4c4c4, -5px -5px 10px #ffffff;
+}
 
-        .neumorphism.bevel > .neumorphism-content {
-            background: var(--white);
-            box-shadow: inset 1px 1px 5px #c4c4c4, inset -1px -1px 5px #ffffff;
-        }
+.neumorphism.bevel > .neumorphism-content {
+    background: var(--white);
+    box-shadow: inset 1px 1px 5px #c4c4c4, inset -1px -1px 5px #ffffff;
+}
 
-    .neumorphism.dark {
-        box-shadow: 5px 5px 10px #1d1d20, -5px -5px 10px #303136;
-    }
+.neumorphism.dark {
+    box-shadow: 5px 5px 10px #1d1d20, -5px -5px 10px #303136;
+}
 
-        .neumorphism.dark.flat {
-            background: var(--dark);
-        }
+.neumorphism.dark.flat {
+    background: var(--dark);
+}
 
-        .neumorphism.dark.pressed {
-            background: var(--dark);
-            box-shadow: inset 5px 5px 10px #1d1d20, inset -5px -5px 10px #303136;
-        }
+.neumorphism.dark.pressed {
+    background: var(--dark);
+    box-shadow: inset 5px 5px 10px #1d1d20, inset -5px -5px 10px #303136;
+}
 
-        .neumorphism.dark.inset {
-            background: var(--dark);
-            box-shadow: inset 1px 1px 5px #1d1d20, inset -1px -1px 5px #303136;
-        }
+.neumorphism.dark.inset {
+    /* background: var(--dark); */
+    box-shadow: inset 1px 1px 5px var(--primary), inset -1px -1px 5px var(--light);
+}
 
-        .neumorphism.dark.concave {
-            background: linear-gradient(145deg, #222327, #292a2e);
-        }
+.neumorphism.dark.concave {
+    background: linear-gradient(145deg, #222327, #292a2e);
+}
 
-        .neumorphism.dark.convex {
-            background: linear-gradient(145deg, #292a2e, #222327);
-        }
+.neumorphism.dark.convex {
+    background: linear-gradient(145deg, #292a2e, #222327);
+}
 
-    .neumorphism > .neumorphism-content {
-        position: relative;
-        padding: 1rem 1.25rem;
-        height: 100%;
-        overflow: hidden;
-    }
+.neumorphism > .neumorphism-content {
+    position: relative;
+    padding: 1rem 1.25rem;
+    height: 100%;
+    overflow: hidden;
+}
 
-        .neumorphism > .neumorphism-content > .neumorphism-content-header {
-            margin: -1rem -1.25rem 1rem;
-            padding: 0.5rem 0.75rem;
-            background: var(--light);
-            box-shadow: 0px 3px 2px -1px #cfcfcf;
-        }
+.neumorphism > .neumorphism-content > .neumorphism-content-header {
+    margin: -1rem -1.25rem 1rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--light);
+    box-shadow: 0px 3px 2px -1px #cfcfcf;
+}
 
-            .neumorphism > .neumorphism-content > .neumorphism-content-header > label {
-                margin: 0;
-                text-transform: uppercase;
-            }
+.neumorphism > .neumorphism-content > .neumorphism-content-header > label {
+    margin: 0;
+    text-transform: uppercase;
+}
 
-    .neumorphism.inset > .neumorphism-content {
-    }
+.neumorphism.inset > .neumorphism-content {
+}
 
-        .neumorphism.inset > .neumorphism-content > .neumorphism-content-header {
-            margin: -0.6875rem -0.9375rem 1rem;
-            padding: 0.5rem 0.75rem;
-            background: var(--white);
-            box-shadow: 0px 3px 2px -1px #cfcfcf;
-        }
+.neumorphism.inset > .neumorphism-content > .neumorphism-content-header {
+    margin: -0.6875rem -0.9375rem 1rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--white);
+    box-shadow: 0px 3px 2px -1px #cfcfcf;
+}
 
-    .neumorphism.inset.xs > .neumorphism-content > .neumorphism-content-header {
-        border-radius: var(--border-radius-xs)
-    }
+.neumorphism.inset.xs > .neumorphism-content > .neumorphism-content-header {
+    border-radius: var(--border-radius-xs)
+}
 
-    .neumorphism.inset.sm > .neumorphism-content > .neumorphism-content-header {
-        border-radius: var(--border-radius-sm)
-    }
+.neumorphism.inset.sm > .neumorphism-content > .neumorphism-content-header {
+    border-radius: var(--border-radius-sm)
+}
 
-    .neumorphism.inset.md > .neumorphism-content > .neumorphism-content-header {
-        border-radius: var(--border-radius-md)
-    }
+.neumorphism.inset.md > .neumorphism-content > .neumorphism-content-header {
+    border-radius: var(--border-radius-md)
+}
 
-    .neumorphism.inset.lg > .neumorphism-content > .neumorphism-content-header {
-        border-radius: var(--border-radius-lg)
-    }
+.neumorphism.inset.lg > .neumorphism-content > .neumorphism-content-header {
+    border-radius: var(--border-radius-lg)
+}
 
-    .neumorphism.xs {
-        border-radius: var(--border-radius-xs);
-    }
+.neumorphism.xs {
+    border-radius: var(--border-radius-xs);
+}
 
-        .neumorphism.xs > .neumorphism-content {
-            border-radius: var(--border-radius-xs);
-        }
+.neumorphism.xs > .neumorphism-content {
+    border-radius: var(--border-radius-xs);
+}
 
-    .neumorphism.sm {
-        border-radius: var(--border-radius-sm);
-    }
+.neumorphism.sm {
+    border-radius: var(--border-radius-sm);
+}
 
-        .neumorphism.sm > .neumorphism-content {
-            border-radius: var(--border-radius-sm);
-        }
+.neumorphism.sm > .neumorphism-content {
+    border-radius: var(--border-radius-sm);
+}
 
-    .neumorphism.md {
-        border-radius: var(--border-radius-md);
-    }
+.neumorphism.md {
+    border-radius: var(--border-radius-md);
+}
 
-        .neumorphism.md > .neumorphism-content {
-            border-radius: var(--border-radius-md);
-        }
+.neumorphism.md > .neumorphism-content {
+    border-radius: var(--border-radius-md);
+}
 
-    .neumorphism.lg {
-        border-radius: var(--border-radius-lg);
-    }
+.neumorphism.lg {
+    border-radius: var(--border-radius-lg);
+}
 
-        .neumorphism.lg > .neumorphism-content {
-            border-radius: var(--border-radius-lg);
-        }
+.neumorphism.lg > .neumorphism-content {
+    border-radius: var(--border-radius-lg);
+}
 
-    .neumorphism.blue {
-        /*background-image: linear-gradient(135deg, var(--theme-blue), var(--theme-blue-alt));*/
-        background-image: linear-gradient(135deg, #1488CC, #2B32B2);
-        color: var(--white);
-    }
+.neumorphism.blue {
+    /*background-image: linear-gradient(135deg, var(--theme-blue), var(--theme-blue-alt));*/
+    background-image: linear-gradient(135deg, #1488CC, #2B32B2);
+    color: var(--white);
+}
 
-    .neumorphism.orange {
-        /*background-image: linear-gradient(135deg, var(--theme-orange), var(--theme-orange-alt));*/
-        background-image: linear-gradient(135deg, #FFC837, #FF8008);
-        color: var(--white);
-    }
+.neumorphism.orange {
+    /*background-image: linear-gradient(135deg, var(--theme-orange), var(--theme-orange-alt));*/
+    background-image: linear-gradient(135deg, #FFC837, #FF8008);
+    color: var(--white);
+}
 
-    .neumorphism.primary {
-        /*background-image: linear-gradient(135deg, var(--primary), var(--primary-alt));*/
-        background-image: linear-gradient(135deg, #00c6ff, #0072ff);
-        color: var(--white);
-    }
+.neumorphism.primary {
+    /*background-image: linear-gradient(135deg, var(--primary), var(--primary-alt));*/
+    background-image: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: var(--white);
+}
 
-    .neumorphism.success {
-        /*background-image: linear-gradient(135deg, var(--success), var(--success-alt));*/
-        background-image: linear-gradient(135deg, #38ef7d, #11998e);
-        color: var(--white);
-    }
+.neumorphism.success {
+    /*background-image: linear-gradient(135deg, var(--success), var(--success-alt));*/
+    background-image: linear-gradient(135deg, #38ef7d, #11998e);
+    color: var(--white);
+}
 
-    .neumorphism.info {
-        /*background-image: linear-gradient(135deg, var(--info), var(--info-alt));*/
-        background-image: linear-gradient(135deg, #A6FFCB, #12D8FA, #1FA2FF);
-        color: var(--white);
-    }
+.neumorphism.info {
+    /*background-image: linear-gradient(135deg, var(--info), var(--info-alt));*/
+    background-image: linear-gradient(135deg, #A6FFCB, #12D8FA, #1FA2FF);
+    color: var(--white);
+}
 
-    .neumorphism.warning {
-        /*background-image: linear-gradient(135deg, var(--warning), var(--warning-alt));*/
-        background-image: linear-gradient(135deg, #fceabb, #f8b500);
-        color: var(--white);
-    }
+.neumorphism.warning {
+    /*background-image: linear-gradient(135deg, var(--warning), var(--warning-alt));*/
+    background-image: linear-gradient(135deg, #fceabb, #f8b500);
+    color: var(--white);
+}
 
-    .neumorphism.danger {
-        /*background-image: linear-gradient(135deg, var(--danger), var(--danger-alt));*/
-        background-image: linear-gradient(135deg, #e35d5b, #e53935);
-        color: var(--white);
-    }
+.neumorphism.danger {
+    /*background-image: linear-gradient(135deg, var(--danger), var(--danger-alt));*/
+    background-image: linear-gradient(135deg, #e35d5b, #e53935);
+    color: var(--white);
+}

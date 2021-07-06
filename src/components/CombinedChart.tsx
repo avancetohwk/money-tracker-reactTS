@@ -106,7 +106,7 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
                 maintainAspectRatio: false,
                 elements: {
                     point:{
-                        radius: 0
+                        //radius: 0
                     }
                 },
                 // animations:{
