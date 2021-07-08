@@ -16,7 +16,7 @@ export default class CategoryChips extends React.Component{
                             <div className="chipContainer " key={a.text}>
                                 {/* <button  className="btn btn-light rounded neumorphism concave"> {a.text}</button> */}
                                 <input type="radio" id={'chip_'+a.text} name='chips' value="apple" checked></input>
-                                <label className="rounded" htmlFor={'chip_'+a.text}>{a.text}</label>
+                                <label className="rounded neumorphism concave" htmlFor={'chip_'+a.text}>{a.text}</label>
                                 {/* <button className="btn btn-light rounded"> {a.text}</button> */}
                             {/* <input type="radio" className="btn-check" name="btnradio" id={a.text} autoComplete="off" ></input>
                             <label className="btn btn-light rounded" htmlFor ={a.text}>{a.text}</label> */}

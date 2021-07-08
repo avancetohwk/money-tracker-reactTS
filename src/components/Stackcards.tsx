@@ -55,18 +55,16 @@ class CategoryCards extends Component {
                         <div className="dp_item" data-class="1" data-position="1">
                             <div className="dp-content">
 
-                            <h2>Slide 2</h2>
-                            <p> This is Slide 2 </p>
-                            <a href="#" className="site-btn">Read More…</a>
+                            <p> Highest Frequency</p>
+                            <a href="#" className="site-btn">343</a>
                             </div>
                         </div>
 
                         <div className="dp_item" data-class="2" data-position="2">
                             <div className="dp-content">
 
-                            <h2>Slide 2</h2>
-                            <p> This is Slide 2 </p>
-                            <a href="#" className="site-btn">Read More…</a>
+                            <p> Highest Amount </p>
+                            <a href="#" className="site-btn">RM 1234.51</a>
                             </div>
                         </div>
 
