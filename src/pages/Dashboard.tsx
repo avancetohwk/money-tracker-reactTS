@@ -92,13 +92,13 @@ class Dashboard extends Component<RouteComponentProps> {
                 <input type="radio" className="btn-check" name="btnradio" id="btnradioyear" autoComplete="off"></input>
                 <label className="btn btn-outline-primary" htmlFor ="btnradioyear">Year</label>
               </div>
-                <div id="graph-card" className="neumorphism inset" >
+                <div id="graph-card" className="neumorphism concave" >
                 {this.state.incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
                 {this.state.combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
                 </div>
             </section>
-            <section id="category-section" style={{borderRadius:"1em 1em 0 0"}}>
-              <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism dark inset" >
+            <section id="category-section" className="neumorphism pressed" style={{borderRadius:"1em 1em 0 0"}}>
+              <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism concave" >
                 <div className="col-6">
                 {this.state.categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                 </div>

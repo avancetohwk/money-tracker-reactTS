@@ -14,19 +14,14 @@ section{
 }
 
 #graph-card{
-    /* position: absolute;
-    bottom: 0;
-    width: 80vw;
-    left: 50%;
-    transform: translate(-50%, 0); */
     height: 85%;
-    border-radius: 1rem 1rem 0 0;
-    background-color: #EEE;
+    //border-radius: 1rem 1rem 0 0;
+    border-radius: 1rem;
 }
 
 #category-section{
     height:40%;
-    background-color:var(--primary);
+    // background-color:var(--primary);
 }
 
 @media screen and (min-width:960px){

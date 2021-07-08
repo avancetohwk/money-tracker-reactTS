@@ -7,14 +7,17 @@ export default class CategoryChips extends React.Component{
     render(){
         return(
             <div style={{overflow:'none'}}>
-                <div style={{display:'flex',overflowX:'auto'}} >
+                <div className="chipsList radio-toolbar" style={{display:'flex',overflowX:'auto'}} >
                 {this.array.map(a => {     
                     console.log("Entered");                 
                     // Return the element. Also pass key     
                     return (
                         // <div className="" style={{margin:'5px', minWidth: 0, flexGrow:1,width:'100%'}}  key={a.text}>
-                            <div className="chipsContainer" key={a.text}>
-                                <button className="btn btn-light rounded"> {a.text}</button>
+                            <div className="chipContainer " key={a.text}>
+                                {/* <button  className="btn btn-light rounded neumorphism concave"> {a.text}</button> */}
+                                <input type="radio" id={'chip_'+a.text} name='chips' value="apple" checked></input>
+                                <label className="rounded" htmlFor={'chip_'+a.text}>{a.text}</label>
+                                {/* <button className="btn btn-light rounded"> {a.text}</button> */}
                             {/* <input type="radio" className="btn-check" name="btnradio" id={a.text} autoComplete="off" ></input>
                             <label className="btn btn-light rounded" htmlFor ={a.text}>{a.text}</label> */}
                                 {/* <button style={{padding:'7px'}} className=" chips">{a.text}</button> */}
