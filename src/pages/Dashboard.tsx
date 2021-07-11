@@ -59,11 +59,13 @@ class Dashboard extends Component<RouteComponentProps> {
     incomeChartLabel:null,
     allFinanceTrackings: null,
     combinedChartData:null,
-    categoryChartData:null
+    categoryChartData:null,
+    categoryChipsData:[{text:'Food'},{text:'Medical'},{text:'Allowance'},{text:'Technology'},{text:'Games'},{text:'Sports'},{text:'Shirts'},{text:'All'},{text:'Car'},{text:'Trip'},{text:'Education'}],
+    dateChipsData:[{text:"All"},{text:"Month"},{text:"Year"}]
   }
 
   render() {
-    const { incomeChartData,combinedChartData,categoryChartData } = this.state;
+    const { incomeChartData,combinedChartData,categoryChartData, categoryChipsData, dateChipsData } = this.state;
     return (
         // <FileInput onFileUploaded={this._onUpload}></FileInput>
         <div className="App">
@@ -79,35 +81,26 @@ class Dashboard extends Component<RouteComponentProps> {
             </div> */} 
             
             <section id="graph-section">
-              <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" className="btn-check" name="btnradio" id="btnradioall" autoComplete="off" ></input>
-                <label className="btn btn-outline-primary" htmlFor ="btnradioall">All</label>
-
-                {/* <input type="radio" className="btn-check" name="btnradio" id="btnradioday" autoComplete="off"></input>
-                <label className="btn btn-outline-primary" htmlFor ="btnradioday">Day</label> */}
-
-                <input type="radio" className="btn-check" name="btnradio" id="btnradiomonth" autoComplete="off"></input>
-                <label className="btn btn-outline-primary" htmlFor ="btnradiomonth">Month</label>
-
-                <input type="radio" className="btn-check" name="btnradio" id="btnradioyear" autoComplete="off"></input>
-                <label className="btn btn-outline-primary" htmlFor ="btnradioyear">Year</label>
+              <div style={{marginBottom:"0.5em"}}>
+                {dateChipsData? <CategoryChips data={dateChipsData} groupName="date"></CategoryChips>: null}
               </div>
-                <div id="graph-card" className="neumorphism concave" >
-                {this.state.incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
-                {this.state.combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
-                </div>
+              <div id="graph-card" className="neumorphism pressed" >
+                {incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
+                {combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
+              </div>
             </section>
-            <section id="category-section" className="neumorphism pressed" style={{borderRadius:"1em 1em 0 0"}}>
+            <section id="category-section" className="neumorphism pressed" style={{borderRadius:"2em 2em 0 0"}}>
               <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism concave" >
                 <div className="col-6">
-                {this.state.categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
+                {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                 </div>
                 <div className="col-6">
                   <CategoryCards/>        
                   
                 </div>
               </div>
-              <CategoryChips></CategoryChips>
+              {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category"></CategoryChips>: null}
+              
               </section>
         </div>
       

@@ -52,7 +52,7 @@ class CategoryCards extends Component {
                 {/* <div className="dp-wrap"> 
                     <div id="dp-slider"> */}
 
-                        <div className="dp_item" data-class="1" data-position="1">
+                        <div className="dp_item glassmorphism" data-class="1" data-position="1">
                             <div className="dp-content">
 
                             <p> Highest Frequency</p>
@@ -60,7 +60,7 @@ class CategoryCards extends Component {
                             </div>
                         </div>
 
-                        <div className="dp_item" data-class="2" data-position="2">
+                        <div className="dp_item glassmorphism" data-class="2" data-position="2">
                             <div className="dp-content">
 
                             <p> Highest Amount </p>
@@ -68,7 +68,7 @@ class CategoryCards extends Component {
                             </div>
                         </div>
 
-                        <div className="dp_item" data-class="3" data-position="3">
+                        <div className="dp_item glassmorphism" data-class="3" data-position="3">
                             <div className="dp-content">
 
                             <h2>Slide 3</h2>
@@ -77,7 +77,7 @@ class CategoryCards extends Component {
                             </div>
                         </div>
 
-                        <div className="dp_item" data-class="4" data-position="4">
+                        <div className="dp_item glassmorphism" data-class="4" data-position="4">
                             <div className="dp-content">
 
                                 <h2>Slide 4</h2>

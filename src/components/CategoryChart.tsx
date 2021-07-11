@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Chart, registerables } from 'chart.js';
 import { data } from 'jquery';
+import './CategoryChart.scss'
+import {LightenDarkenColor} from  '../utils/helper';
+//import 'chartjs-plugin-style';
+//import './temp.js';
 
 // import classes from "./LineGraph.module.css";
 export interface ICategoryChartProps{
@@ -8,97 +12,151 @@ export interface ICategoryChartProps{
 }
 
 
-Chart.register(...registerables);
+const ShadowPlugin = {
+    id:"shadow",
+    beforeDraw: (chart, args, options) => {
+      const { ctx } = chart;
+      ctx.shadowColor = effectColors.shadow;
+      ctx.shadowBlur = 15;
+      ctx.shadowOffsetX = 15;
+      ctx.shadowOffsetY = 15;
+    },
+  };
+
+  const effectColors = {
+    highlight: 'rgba(255, 255, 255, 0.75)',
+    shadow: 'rgba(0, 0, 0, 0.2)',
+    glow: 'rgb(255, 255, 0)'	
+  };
+
+Chart.register(ShadowPlugin);
 export default class CategoryChart extends Component<ICategoryChartProps> {
     chartRef:React.RefObject<any> = React.createRef();
+    chartRefShadow:React.RefObject<any> = React.createRef();
+    chartRefHighlight:React.RefObject<any> = React.createRef();
     myChart;
+    myChartShadow;
+    myChartHighlight;
     width;
     height;
 
     constructor(props){
         super(props);
+        //console.log(styleplugin)
     }
 
     componentDidMount() {
         this.buildChart();
     }
 
+    shuffle(array) {
+      var currentIndex = array.length,  randomIndex;
+    
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+    
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+    
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+    
+      return array;
+    }
+
     buildChart(){
         const myChartRef = this.chartRef.current.getContext("2d");
+        const myChartRefShadow = this.chartRefShadow.current.getContext("2d");
+        const myChartRefHighlight = this.chartRefHighlight.current.getContext("2d");
         const {height: graphHeight, width:graphWidth} = myChartRef.canvas;
         const {data} = this.props;
+        
 
-        const colors = data.values.map(t=>{
-            var color = this.getRandomColor();
+
+        const colors2 = data.values.map(t=>{
+            var color = this.getRandomColor("#ffbf19");
             var gradient = myChartRef.createLinearGradient(0, 0, graphWidth * 2, 0);
             gradient.addColorStop(0, color);
-            gradient.addColorStop(1, color);
+            // gradient.addColorStop(1, color);
             return gradient;
         });
+        var colors=["hsl(43,100%,100%,0.5)", "hsl(43,100%,40%,0.5)", "hsl(43,100%,60%,0.5)", "hsl(43,100%,0%,0.5)", "hsl(43,100%,20%,0.5)", "hsl(43,100%,80%,0.5)"]
+        //rainbow ["hsl(0,100%,55%,0.5)", "hsl(30,100%,55%,0.5)", "hsl(60,100%,55%,0.5)", "hsl(90,100%,55%,0.5)", "hsl(120,100%,55%,0.5)", "hsl(150,100%,55%,0.5)", "hsl(180,100%,55%,0.5)", "hsl(210,100%,55%,0.5)", "hsl(240,100%,55%,0.5)", "hsl(270,100%,55%,0.5)"];
+        var a= [1,3,4,5,6,2]
+        // a.forEach((c,i)=>{
+        //   //colors.push(LightenDarkenColor('#ffbf19',15*i));
+        //   //colors.push("hsl("+(43)+","+(100-(i*10))+"%,55%,0.5)")
+        //   colors.push("hsl("+(43)+",100%,"+(100-(i*20))+"%,0.5)")
+        //   //colors.push("hsl("+(i*30)+",100%,55%,0.5)")
+        // })
+        colors = this.shuffle(colors);
+        
         console.log(colors)
-        // console.log(data)
+
+        var chartData = {
+          labels: data.labels,
+          datasets: [{
+            label: 'My First Dataset',
+            data: data.values,
+            borderWidth:0,
+            backgroundColor: colors,
+            pointStrokeColor: "rgba(0,0,0,0)",
+            pointHighlightFill: "rgba(0,0,0,0)",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            strokeColor: 'red',
+            pointColor: 'blue',
+            
+          }]
+        }
+
         if (typeof this.myChart !== "undefined") this.myChart.destroy();
-
-
-//         const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, canvas.height / 4, canvas.width / 2, canvas.height / 2, canvas.height / 2);
-
-//   const innerColor = "hsla(1, 60%, 30%, 1)"
-//   const mainColor = red
-//   const outerColor = "hsla(1, 73.7%, 48%, 1)"
-//   gradient.addColorStop(0, innerColor);
-//   gradient.addColorStop(.12, innerColor);
-//   gradient.addColorStop(.121, mainColor);
-//   gradient.addColorStop(1, outerColor);
-        let gradientLine = myChartRef
-                .createLinearGradient(graphWidth / 2, graphHeight / 2, graphHeight / 4, graphWidth / 2, graphHeight / 2, graphHeight / 2);
-                gradientLine.addColorStop(0, "rgb(76, 149, 150, 1)");
-                gradientLine.addColorStop(0.45, "rgb(253, 210, 97, 1)");
-                gradientLine.addColorStop(0.55, "rgb(255, 255, 255, 1)");
     
-            let spendingsGradientLine = myChartRef
-            .createLinearGradient(0, 0, graphWidth * 2, 0);
-            spendingsGradientLine.addColorStop(0, "rgb(255, 0, 110, 0.2)");
-            spendingsGradientLine.addColorStop(0.5, "rgb(255, 0, 110, 0.35)");
-            spendingsGradientLine.addColorStop(1, "rgb(255, 0, 110, 0.7)");
-
             var that = this;
             this.myChart = new Chart(myChartRef, {
                 type: "doughnut",
                 
-                data: {
-                    labels: data.labels,
-                    datasets: [{
-                      label: 'My First Dataset',
-                      data: data.values,
-                      borderWidth:0,
-                      backgroundColor: colors,
-                    //   backgroundColor: [
-                    //     gradientLine,
-                    //     spendingsGradientLine,
-                    //     'rgb(255, 205, 86)'
-                    //   ],
-                      hoverOffset: 4
-                    }]
-                  },
+                data: chartData,
                   
                 options: {
                     cutout: "65%",
-                    
+                    layout: {
+                      padding: 5
+                    },
                     plugins: {
                         legend: {
                             display: false
                         }
-                    }
+                    },animation: {
+                      animateScale: true,
+                      animateRotate: true
+                    },
                     //Customize chart options
-                }
-            });
+                },
+                //plugins:[ShadowPlugin]
+        } as any );
+
     }
 
-    getRandomColor(){
-        var r = Math.floor(Math.random() * 200);
-        var g = Math.floor(Math.random() * 200);
-        var b = Math.floor(Math.random() * 200);
-        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    getRandomColor(color){
+      var p = 1,
+        temp,
+        random = Math.random(),
+        result = '#';
+
+      while (p < color.length) {
+          temp = parseInt(color.slice(p, p += 2), 16)
+          temp += Math.floor((255 - temp) * random);
+          result += temp.toString(16).padStart(2, '0');
+      }
+      return result+'80';
+      //return "hsl(43,"+(Math.round(Math.random() * 99) + 1)+"%,"+(Math.round(Math.random() * 99) + 1)+"%)";
+        // var r = Math.floor(Math.random() * 255);
+        // var g = Math.floor(Math.random() * 255);
+        // var b = Math.floor(Math.random() * 255);
+        // return 'rgba(' + r + ', ' + g + ', ' + b + ',0.65)';
     }
 
     createRadialGradient3(context, c1, c2, c3) {
@@ -138,11 +196,12 @@ export default class CategoryChart extends Component<ICategoryChartProps> {
 
     render() {
         return (
-            <div >
-                <canvas
-                    id="myChart"
-                    ref={this.chartRef}
-                />
+            <div className="shadowParent">
+                
+                
+                <canvas id="myChartHighlight"  className="highlight" ref={this.chartRefHighlight} />
+                <canvas id="myChartShadow" className="firstShadow" ref={this.chartRefShadow} />
+                <canvas id="myChart" className="main" ref={this.chartRef} />
             </div>
         )
     }

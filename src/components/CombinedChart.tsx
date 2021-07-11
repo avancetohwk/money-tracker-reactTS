@@ -37,20 +37,9 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
             width = chartWidth;
             height = chartHeight;
             gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-            // gradient.addColorStop(0, 'blue');
-            // gradient.addColorStop(0.5, 'yellow');
-            // gradient.addColorStop(1, 'red');
-            // gradient.addColorStop(0, "rgb(32, 38, 48, 0)");
-            
-            // gradient.addColorStop(0.5, "rgb(253, 210, 97, 1)");
-            //gradient.addColorStop(0, "rgb(32, 38, 48, 0.8)");
-            // gradient.addColorStop(0.5, "rgb(76, 149, 150, 0.55)");
-            //gradient.addColorStop(0.33, "rgb(32, 38, 48, 0.55)");
             gradient.addColorStop(0.1, hexColor+'BF'); //75%
             gradient.addColorStop(0.5, hexColor+'73'); //45%
             gradient.addColorStop(1, hexColor+'40'); //25%
-            // gradient.addColorStop(0.75, "rgb(253, 210, 97, 0.55)");
-            // gradient.addColorStop(1, "rgb(253, 210, 97, 0.8)");
         }
 
 
@@ -76,7 +65,8 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
                 width = chartWidth;
                 height = chartHeight;
                 gradient = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
-                gradient.addColorStop(0.1, hexColor+'BF'); //75%
+                //gradient.addColorStop(0.1, hexColor+'BF'); //75%
+                gradient.addColorStop(0.1, hexColor+'A6'); //65%
                 gradient.addColorStop(0.5, hexColor+'73'); //45%
                 gradient.addColorStop(1, hexColor+'40'); //25%
             };
