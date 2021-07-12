@@ -54,35 +54,33 @@ class CategoryCards extends Component {
 
                         <div className="dp_item glassmorphism" data-class="1" data-position="1">
                             <div className="dp-content">
-
+                            <h2>343</h2>
                             <p> Highest Frequency</p>
-                            <a href="#" className="site-btn">343</a>
+                            {/* <a href="#" className="site-btn">343</a> */}
                             </div>
                         </div>
 
                         <div className="dp_item glassmorphism" data-class="2" data-position="2">
                             <div className="dp-content">
-
+                            <h2>RM 1234.41</h2>
                             <p> Highest Amount </p>
-                            <a href="#" className="site-btn">RM 1234.51</a>
+                            {/* <a href="#" className="site-btn">RM 1234.51</a> */}
                             </div>
                         </div>
 
                         <div className="dp_item glassmorphism" data-class="3" data-position="3">
                             <div className="dp-content">
 
-                            <h2>Slide 3</h2>
-                            <p> This is Slide 3 </p>
-                            <a href="#" className="site-btn">Read More…</a>
+                            <h2>RM 3.45</h2>
+                            <p>Average Amount </p>
                             </div>
                         </div>
 
                         <div className="dp_item glassmorphism" data-class="4" data-position="4">
                             <div className="dp-content">
 
-                                <h2>Slide 4</h2>
-                                <p> This is Slide 4 </p>
-                                <a href="#" className="site-btn">Read More…</a>
+                              <h2>RM 321.45</h2>
+                              <p>Average Amount </p>
                             </div>
                         </div>
                     {/* </div>
