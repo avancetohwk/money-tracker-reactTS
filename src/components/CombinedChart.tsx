@@ -139,7 +139,7 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
                 },
                 elements: {
                     point:{
-                        radius: 0
+                        radius: 1
                     }
                 },
                 // animations:{

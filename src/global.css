@@ -91,8 +91,37 @@
 }
 
 .neumorphism.dark.convex {
-    background: linear-gradient(145deg, #292a2e, #222327);
+    background: l
+    inear-gradient(145deg, #292a2e, #222327);
 }
+
+.neumorphism.accent {
+    box-shadow: 5px 5px 10px #795a0a, -5px -5px 10px #ffde87;
+}
+
+/* .neumorphism.accent.flat {
+    background: var(--dark);
+} */
+
+.neumorphism.accent.pressed {
+    background: var(--accent);
+    box-shadow: inset 5px 5px 10px #795a0a, inset -5px -5px 10px #ffde87;
+}
+
+/* .neumorphism.accent.inset {
+    background: var(--dark); 
+    box-shadow: inset 1px 1px 5px var(--primary), inset -1px -1px 5px var(--light);
+} */
+
+/* .neumorphism.accent.concave {
+    background: linear-gradient(145deg, #222327, #292a2e);
+} */
+/* 
+.neumorphism.accent.convex {
+    background: l
+    inear-gradient(145deg, #292a2e, #222327);
+} */
+
 
 .neumorphism > .neumorphism-content {
     position: relative;

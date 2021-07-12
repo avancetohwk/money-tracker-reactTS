@@ -20,7 +20,7 @@
     color: #FFF;
     border-radius: 10px;
     transition: transform 1.2s;
-    background: rgba(255,255, 255, 0.3);
+    background: rgba(255,255, 255, 0.5);
     opacity: 0.5;
 }
 #dp-slider .dp_item:first-child {
@@ -52,7 +52,7 @@
     //background: #eee;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 2px 2px 5px black;
+    //box-shadow: 2px 2px 5px black;
     padding:0.5em;
     height:100%;
 }

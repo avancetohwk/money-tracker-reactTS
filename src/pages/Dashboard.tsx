@@ -89,8 +89,8 @@ class Dashboard extends Component<RouteComponentProps> {
                 {combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
               </div>
             </section>
-            <section id="category-section" className="neumorphism pressed" style={{borderRadius:"2em 2em 0 0"}}>
-              <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism concave" >
+            <section id="category-section" className="neumorphism accent pressed" style={{borderRadius:"2em 2em 0 0"}}>
+              <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism accent concave" >
                 <div className="col-6">
                 {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                 </div>
