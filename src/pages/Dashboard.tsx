@@ -13,6 +13,7 @@ import CategoryChips from '../components/CategoryChips';
 import moment from 'moment';
 import CombinedChart from '../components/CombinedChart';
 import history from '../utils/history';
+import CategoryCard from '../components/CategoryCard';
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -82,7 +83,7 @@ class Dashboard extends Component<RouteComponentProps> {
             
             <section id="graph-section">
               <div style={{marginBottom:"0.5em"}}>
-                {dateChipsData? <CategoryChips data={dateChipsData} groupName="date"></CategoryChips>: null}
+                {dateChipsData? <CategoryChips data={dateChipsData} groupName="date" extraClass=""></CategoryChips>: null}
               </div>
               <div id="graph-card" className="neumorphism pressed" >
                 {incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
@@ -96,10 +97,10 @@ class Dashboard extends Component<RouteComponentProps> {
                 </div>
                 <div className="col-6">
                   <CategoryCards/>        
-                  
+                  {/* <CategoryCard></CategoryCard> */}
                 </div>
               </div>
-              {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category"></CategoryChips>: null}
+              {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null}
               
               </section>
         </div>
