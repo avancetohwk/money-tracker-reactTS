@@ -1,9 +1,6 @@
-import { cpuUsage } from 'process';
 import * as React from 'react';
-//import { Swiper } from 'swiper';
-import { Swiper,SwiperSlide } from 'swiper/react';
 import './CategoryCard.scss'
-import 'swiper/swiper.scss';
+import { FaChartBar, FaDollarSign, FaInfo } from 'react-icons/fa';
 
 export interface ICategoryCardItem {
     text: string;
@@ -26,123 +23,36 @@ export default class CategoryCard extends React.Component {
 
     constructor(props) {
       super(props);
-    //   const swiper = new Swiper('.blog-slider', {
-    //     spaceBetween: 30,
-    //     effect: 'fade',
-    //     loop: true,
-    //     mousewheel: {
-    //       invert: false,
-    //     },
-    //     // autoHeight: true,
-    //     pagination: {
-    //       el: '.blog-slider__pagination',
-    //       clickable: true,
-    //     }
-    //   });
     }
     
 
     componentDidUpdate(prevProps) {
     }
 
-
-    
-
     public render(): React.ReactElement<ICategoryCardProps> {
         return (
-            <Swiper
-                spaceBetween={30}
-                effect={'fade'}
-                loop={true}
-                //mousewheel={invert:false}
-                //slidesPerView={3}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-                >
-                    
-                <SwiperSlide className='blog-slider'>
-                    <div className="blog-slider__img">
-                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt=""></img>
+            <div className="categoryCard" id="dp-slider">
+                <div className="glassmorphism neumorphism accent pressed item" >
+                    <div className="content">
+                        <h2>343</h2>
+                        <p> Highest Frequency</p>
                     </div>
-                    <div className="blog-slider__item ">
-                        <div className="blog-slider__content">
-                            <span className="blog-slider__code">Frequency</span>
-                            {/* <div className="blog-slider__title">Lorem Ipsum Dolor</div> */}
-                            <div className="blog-slider__text">334 </div>
-                            <a href="#" className="blog-slider__button">READ MORE</a>
+                    <div className="chipsList radio-toolbar" style={{display:'flex',overflowX:'auto'}} >
+                        <div className="chipContainer " >
+                            <input type="radio" id={'chip_frequency'} name='categoryDetails' value={'frequency'}></input>
+                            <label className="neumorphism concave" htmlFor={'chip_frequency'}><FaChartBar /></label>
+                        </div>
+                        <div className="chipContainer " >
+                            <input type="radio" id={'chip_amount'} name='categoryDetails' value={'amount'}></input>
+                            <label className="neumorphism concave"  htmlFor={'chip_amount'}><FaDollarSign /></label>
+                        </div>
+                        <div className="chipContainer " >
+                            <input type="radio" id={'chip_average'} name='categoryDetails' value={'average'}></input>
+                            <label className="neumorphism concave " htmlFor={'chip_average'}><FaInfo /></label>
                         </div>
                     </div>
-                </SwiperSlide>
-                <SwiperSlide><div className="blog-slider__img">
-                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt=""></img>
-                    </div>
-                    <div className="blog-slider__item ">
-                        <div className="blog-slider__content">
-                            <span className="blog-slider__code">Frequency</span>
-                            {/* <div className="blog-slider__title">Lorem Ipsum Dolor</div> */}
-                            <div className="blog-slider__text">334 </div>
-                            <a href="#" className="blog-slider__button">READ MORE</a>
-                        </div>
-                    </div></SwiperSlide>
-                <SwiperSlide><div className="blog-slider__img">
-                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt=""></img>
-                    </div>
-                    <div className="blog-slider__item ">
-                        <div className="blog-slider__content">
-                            <span className="blog-slider__code">Frequency</span>
-                            {/* <div className="blog-slider__title">Lorem Ipsum Dolor</div> */}
-                            <div className="blog-slider__text">334 </div>
-                            <a href="#" className="blog-slider__button">READ MORE</a>
-                        </div>
-                    </div></SwiperSlide>
-                <SwiperSlide><div className="blog-slider__img">
-                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt=""></img>
-                    </div>
-                    <div className="blog-slider__item ">
-                        <div className="blog-slider__content">
-                            <span className="blog-slider__code">Frequency</span>
-                            {/* <div className="blog-slider__title">Lorem Ipsum Dolor</div> */}
-                            <div className="blog-slider__text">334 </div>
-                            <a href="#" className="blog-slider__button">READ MORE</a>
-                        </div>
-                    </div></SwiperSlide>
-            </Swiper>
-            // <div className="blog-slider">
-            //     <div className="blog-slider__wrp swiper-wrapper">
-                    // <div className="blog-slider__img">
-                            
-                    //     <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg" alt=""></img>
-                    // </div>
-            //         <div className="blog-slider__item swiper-slide">
-                        
-            //             <div className="blog-slider__content">
-            //                 <span className="blog-slider__code">Frequency</span>
-            //                 {/* <div className="blog-slider__title">Lorem Ipsum Dolor</div> */}
-            //                 <div className="blog-slider__text">334 </div>
-            //                 <a href="#" className="blog-slider__button">READ MORE</a>
-            //             </div>
-            //         </div>
-            //         <div className="blog-slider__item swiper-slide">
-            //             <div className="blog-slider__content">
-            //                 <span className="blog-slider__code">26 December 2019</span>
-            //                 {/* <div className="blog-slider__title">Lorem Ipsum Dolor2</div> */}
-            //                 <div className="blog-slider__text">2123</div>
-            //                 <a href="#" className="blog-slider__button">READ MORE</a>
-            //             </div>
-            //         </div>
-                    
-            //         <div className="blog-slider__item swiper-slide">
-            //             <div className="blog-slider__content">
-            //                 <span className="blog-slider__code">26 December 2019</span>
-            //                 {/* <div className="blog-slider__title">Lorem Ipsum Dolor</div> */}
-            //                 <div className="blog-slider__text">321</div>
-            //                 <a href="#" className="blog-slider__button">READ MORE</a>
-            //             </div>
-            //         </div>
-                    
-            //     </div>
-            //     <div className="blog-slider__pagination"></div>
-            // </div>
-        );
+                </div>
+            </div>
+        )
     }
 }

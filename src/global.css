@@ -32,7 +32,7 @@
   NEUMORPHISM
 **********************************/
 .neumorphism {
-    box-shadow: 0.1em 0.1em 10px #c4c4c4, -0.1em -0.1em 10px #ffffff;
+    box-shadow: 0.1em 0.1em 0.2em #c4c4c4, -0.1em -0.1em 0.2em #ffffff;
 }
 
 .neumorphism.flat {

@@ -65,7 +65,7 @@ class CategoryCards extends Component {
                                   <input type="radio" id={'chip_frequency'} name='categoryDetails' value={'frequency'}></input>
                                   <label className="neumorphism concave" htmlFor={'chip_frequency'}><FaChartBar /></label>
                               </div>
-                              <div className="chipContainer " >
+                              <div className="chipContainer " style={{marginBottom:'1.5em'}} >
                                   <input type="radio" id={'chip_amount'} name='categoryDetails' value={'amount'}></input>
                                   <label className="neumorphism concave"  htmlFor={'chip_amount'}><FaDollarSign /></label>
                               </div>

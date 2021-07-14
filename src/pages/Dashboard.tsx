@@ -96,8 +96,8 @@ class Dashboard extends Component<RouteComponentProps> {
                 {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                 </div>
                 <div className="col-6">
-                  <CategoryCards/>        
-                  {/* <CategoryCard></CategoryCard> */}
+                  {/* <CategoryCards/>         */}
+                  <CategoryCard></CategoryCard>
                 </div>
               </div>
               {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null}
