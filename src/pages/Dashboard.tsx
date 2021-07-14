@@ -39,6 +39,7 @@ class Dashboard extends Component<RouteComponentProps> {
     }
     this.getIncomeChartData(this.props.location.state);
     this.getCategoryChartData(this.props.location.state)
+    this.getCategoryCardData(this.props.location.state);
       // this.setState({allFinanceTrackings: this.props.location.state})
       // console.log(this.state)
   }
@@ -61,12 +62,14 @@ class Dashboard extends Component<RouteComponentProps> {
     allFinanceTrackings: null,
     combinedChartData:null,
     categoryChartData:null,
+    categoryCardData:null,
     categoryChipsData:[{text:'Food'},{text:'Medical'},{text:'Allowance'},{text:'Technology'},{text:'Games'},{text:'Sports'},{text:'Shirts'},{text:'All'},{text:'Car'},{text:'Trip'},{text:'Education'}],
     dateChipsData:[{text:"All"},{text:"Month"},{text:"Year"}]
   }
 
   render() {
-    const { incomeChartData,combinedChartData,categoryChartData, categoryChipsData, dateChipsData } = this.state;
+    const { incomeChartData,combinedChartData,categoryChartData,categoryCardData, categoryChipsData, dateChipsData } = this.state;
+    console.log(categoryCardData)
     return (
         // <FileInput onFileUploaded={this._onUpload}></FileInput>
         <div className="App">
@@ -97,7 +100,9 @@ class Dashboard extends Component<RouteComponentProps> {
                 </div>
                 <div className="col-6">
                   {/* <CategoryCards/>         */}
-                  <CategoryCard></CategoryCard>
+                  {categoryCardData? <CategoryCard item={categoryCardData}></CategoryCard>: null}
+                  
+                  
                 </div>
               </div>
               {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null}
@@ -134,12 +139,14 @@ class Dashboard extends Component<RouteComponentProps> {
   }
 
   getCategoryChartData = (data)=>{
-    var categoryGroup = data.filter(t=>t.category == "Allowance" && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
+    var categoryGroup = data.filter(t=>t.category == "Allowance" ).reduce((p,c)=>{
       let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
       let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
+
+    console.log(categoryGroup)
     var values = [];
     var labels=[];
     Object.keys(categoryGroup).forEach(g=>{
@@ -150,8 +157,21 @@ class Dashboard extends Component<RouteComponentProps> {
     console.log(categoryData)
     this.setState({categoryChartData:categoryData})
   }
+
+  getCategoryCardData = (data)=>{
+    var categoryCardData = {
+      frequency: '334',
+      amount: 'RM 1234.12',
+      average: 'RM 928.45'  
+    }
+
+    this.setState({categoryCardData:categoryCardData});
+  }
   
 }
+
+
+
 
 
 export default (Dashboard);
