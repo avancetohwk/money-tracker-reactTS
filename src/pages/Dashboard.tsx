@@ -95,7 +95,7 @@ class Dashboard extends Component<RouteComponentProps> {
             </section>
             <section id="category-section" className="neumorphism accent pressed" style={{borderRadius:"2em 2em 0 0"}}>
               <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism accent concave" >
-                <div className="col-6">
+                <div className="col-6" >
                 {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                 </div>
                 <div className="col-6">
@@ -161,8 +161,8 @@ class Dashboard extends Component<RouteComponentProps> {
   getCategoryCardData = (data)=>{
     var categoryCardData = {
       frequency: '334',
-      amount: 'RM 1234.12',
-      average: 'RM 928.45'  
+      amount: '1234.12',
+      average: '928.45'  
     }
 
     this.setState({categoryCardData:categoryCardData});
