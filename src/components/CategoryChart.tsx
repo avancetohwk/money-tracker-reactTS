@@ -187,6 +187,8 @@ export default class CategoryChart extends Component<ICategoryChartProps> {
                   
                 options: {
                     cutout: "65%",
+                    responsive:true,
+                    maintainAspectRatio: true,
                     layout: {
                       padding: 5
                     },

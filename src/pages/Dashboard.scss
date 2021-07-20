@@ -8,7 +8,11 @@ section{
     position: relative;
     padding-bottom: 0;
 
-    .btn-group{
+    & > div{
+        margin-bottom: 0.5em;
+    }
+    .btn-
+    group{
         margin-bottom: 0.5em;
     }
 }
@@ -21,7 +25,105 @@ section{
 
 #category-section{
     height:40%;
+    border-radius:2em 2em 0 0;
     // background-color:var(--primary);
+
+    .category-card{
+        display:flex;
+        //margin-bottom:1em;
+        padding:1em;
+        border-radius:1em;
+        flex: 1;
+
+        
+        
+        
+    }
+
+    #category-chart-card{
+        align-items: center;
+    }
+
+    #category-data-list-card{
+        padding:1em 0 ;
+    }
+
+
+
+    .category-table{
+        width: 100%;
+
+        tbody{
+            display: flex;
+            flex-direction: column;
+        }
+
+        tr{
+            flex:1;
+            margin-bottom:0.5em;
+            padding: 0.5em;
+            border-radius: 2em;
+            width: 100%;
+        }
+    }
+
+    .category-data-list{
+        //overflow-x:hidden;
+        overflow-y:auto;
+
+
+        .category-data{
+            // display: flex;
+            // flex-direction: column;
+            padding: 0.5em;
+            margin-bottom: 1em;
+
+            div{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        .spending{
+            margin-right: 2em;
+            border-radius: 0 2em 2em 0;
+
+            .data-amount{
+                color:red;
+            }
+        }
+
+        .income{
+            margin-left: 2em;
+            border-radius: 2em 0 0 2em;
+
+            .data-amount{
+                color:green
+            }
+        }
+
+        .data-amount{
+            font-weight: bold;
+            
+        }
+
+        span{
+            font-weight: bold;
+            text-align: left;
+        }
+
+        p{
+            font-size: 0.8em;
+            text-align: left;
+            margin:0;
+        }
+    }
+}
+
+.swiper-slide{
+    padding:0.5em;
+    display:flex;
 }
 
 @media screen and (min-width:960px){
@@ -33,3 +135,4 @@ section{
         height:50%
     }
 }
+

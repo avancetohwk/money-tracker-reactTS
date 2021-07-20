@@ -15,7 +15,7 @@ export default class CategoryChips extends React.Component<IChipsProps>{
 
     render(){
         return(
-            <div className="chipListContainer" style={{}}>
+            <div className="chipListContainer">
                 <div className="chipsList radio-toolbar" style={{display:'flex',overflowX:'auto'}} >
                     {this.props.data.map(a => {                
                     // Return the element. Also pass key     

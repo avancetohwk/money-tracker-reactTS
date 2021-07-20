@@ -14,6 +14,8 @@
   .chipListContainer{
     display:flex;
     justify-content:center;
+    height: 20%;
+    align-items: center;
 
     .radio-toolbar input[type="radio"] {
       opacity: 0;
@@ -46,7 +48,9 @@
       overflow-x: auto;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  
+
+      display: flex;
+      padding: 0.5em;
       
   }
 
@@ -58,7 +62,7 @@
   .chipContainer{
     // margin-top: 10px;
     // margin-bottom: 10px;
-    margin: 0.25em;
+    margin: 0.1em;
 
     button{
       padding:0.25rem;

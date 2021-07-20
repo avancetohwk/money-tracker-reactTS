@@ -21,7 +21,7 @@
         .content{
             text-align: center;
             padding: 0.5em;
-            padding-top: 1.5em;
+            padding-top: 0.5em;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,9 +44,10 @@
             display: flex;
             width: 100%;
             justify-content: space-around;
+            padding: 0;
 
             .chipContainer{
-                margin: 0.25em;
+                margin: 0.1em;
                 display: flex;
                 justify-content: center;
                 align-items: center;

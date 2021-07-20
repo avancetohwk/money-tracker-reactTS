@@ -14,6 +14,8 @@ import moment from 'moment';
 import CombinedChart from '../components/CombinedChart';
 import history from '../utils/history';
 import CategoryCard from '../components/CategoryCard';
+import {SwiperSlide,Swiper} from 'swiper/react';
+import 'swiper/swiper.scss';
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -85,7 +87,7 @@ class Dashboard extends Component<RouteComponentProps> {
             </div> */} 
             
             <section id="graph-section">
-              <div style={{marginBottom:"0.5em"}}>
+              <div >
                 {dateChipsData? <CategoryChips data={dateChipsData} groupName="date" extraClass=""></CategoryChips>: null}
               </div>
               <div id="graph-card" className="neumorphism pressed" >
@@ -93,18 +95,88 @@ class Dashboard extends Component<RouteComponentProps> {
                 {combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
               </div>
             </section>
-            <section id="category-section" className="neumorphism accent pressed" style={{borderRadius:"2em 2em 0 0"}}>
-              <div style={{display:"flex",marginBottom:'1em',padding:'1em', borderRadius:"1em"}} className="neumorphism accent concave" >
-                <div className="col-6" >
-                {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
-                </div>
-                <div className="col-6">
-                  {/* <CategoryCards/>         */}
-                  {categoryCardData? <CategoryCard item={categoryCardData}></CategoryCard>: null}
-                  
-                  
-                </div>
-              </div>
+            <section id="category-section" className="neumorphism accent pressed" >
+              <Swiper style={{ width: '100%', height: '80%' }}
+                spaceBetween={40}
+                effect={'fade'}
+                loop={true}
+                // autoHeight= {true}
+                //mousewheel={invert:false}
+                //slidesPerView={3}
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper) => console.log(swiper)}
+                >
+                    
+                <SwiperSlide style={{width:'100%'}} className=' '>
+                  <div  className='neumorphism accent concave category-card col-12' id="category-chart-card">
+                    <div className="col-6" >
+                      {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
+                      </div>
+                      <div className="col-6">
+                        {/* <CategoryCards/>         */}
+                        {categoryCardData? <CategoryCard item={categoryCardData}></CategoryCard>: null}
+                      
+                      
+                    </div>
+                  </div>
+                 
+                </SwiperSlide>
+                <SwiperSlide style={{width:'100%'}} className="">
+                  <div className=" neumorphism accent concave category-card " id="category-data-list-card">
+                  <div className="col-12 category-data-list">
+                      <div className="row neumorphism pressed spending category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed spending category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed income category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed spending category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+                      
+                      <div className="row neumorphism pressed income category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed income category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+                    </div>
+                  </div>
+                    
+                  </SwiperSlide>
+                </Swiper>
+                
               {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null}
               
               </section>
