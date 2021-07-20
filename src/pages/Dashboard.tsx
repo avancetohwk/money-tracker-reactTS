@@ -16,6 +16,9 @@ import history from '../utils/history';
 import CategoryCard from '../components/CategoryCard';
 import {SwiperSlide,Swiper} from 'swiper/react';
 import 'swiper/swiper.scss';
+import CategorySection from '../components/CategorySection';
+import { BottomSheet } from 'react-spring-bottom-sheet';
+import "react-spring-bottom-sheet/dist/style.css";
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -95,7 +98,84 @@ class Dashboard extends Component<RouteComponentProps> {
                 {combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
               </div>
             </section>
-            <section id="category-section" className="neumorphism accent pressed" >
+            <BottomSheet
+              open={true}
+              className="neumorphism pressed accent"
+              //onDismiss={() => setOpen(false)}
+              blocking={false}
+              defaultSnap={({ maxHeight }) => maxHeight * 0.4}
+              snapPoints={({ maxHeight }) => [maxHeight * 0.4, maxHeight * 0.9]}
+              footer={
+                categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null
+              }
+            >
+              <div>
+              <div  className='neumorphism accent concave category-card col-12' id="category-chart-card">
+                    <div className="col-6" >
+                      {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
+                      </div>
+                      <div className="col-6">
+                        {categoryCardData? <CategoryCard item={categoryCardData}></CategoryCard>: null}
+                      
+                      
+                    </div>
+                  </div>
+                  <div className=" neumorphism accent concave category-card " id="category-data-list-card">
+                  <div className="col-12 category-data-list">
+                      <div className="row neumorphism pressed spending category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed spending category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed income category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed spending category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+                      
+                      <div className="row neumorphism pressed income category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+
+                      <div className="row neumorphism pressed income category-data">
+                        <div className="col-8">
+                          <span>Dinner mamak</span>
+                          <p>02/07/2021</p>
+                        </div>
+                        <div className="col-4 data-amount">RM 23.44</div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              
+              
+            </BottomSheet>
+            {/* <section id="category-section" className="neumorphism accent pressed" >
               <Swiper style={{ width: '100%', height: '80%' }}
                 spaceBetween={40}
                 effect={'fade'}
@@ -113,7 +193,6 @@ class Dashboard extends Component<RouteComponentProps> {
                       {categoryChartData? <CategoryChart data={categoryChartData}></CategoryChart>: null}
                       </div>
                       <div className="col-6">
-                        {/* <CategoryCards/>         */}
                         {categoryCardData? <CategoryCard item={categoryCardData}></CategoryCard>: null}
                       
                       
@@ -180,6 +259,8 @@ class Dashboard extends Component<RouteComponentProps> {
               {categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null}
               
               </section>
+            <CategorySection></CategorySection> */}
+        
         </div>
       
 

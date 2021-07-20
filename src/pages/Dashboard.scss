@@ -23,10 +23,6 @@ section{
     border-radius: 1rem;
 }
 
-#category-section{
-    height:40%;
-    border-radius:2em 2em 0 0;
-    // background-color:var(--primary);
 
     .category-card{
         display:flex;
@@ -42,10 +38,12 @@ section{
 
     #category-chart-card{
         align-items: center;
+        margin-bottom: 1.5em;
     }
 
     #category-data-list-card{
         padding:1em 0 ;
+        max-height: 45vh;
     }
 
 
@@ -119,12 +117,32 @@ section{
             margin:0;
         }
     }
-}
+
 
 .swiper-slide{
     padding:0.5em;
     display:flex;
 }
+
+[data-rsbs-overlay] {
+    border-radius:2em 2em 0 0 !important;
+    background: var(--accent) !important;
+    box-shadow: inset 5px 5px 10px #795a0a, inset -5px -5px 10px #ffde87 !important;
+  }
+
+  [data-rsbs-scroll]{
+      overflow:hidden !important;
+  }
+
+  [data-rsbs-content]{
+    padding:1em !important;
+}
+
+[data-rsbs-footer] {
+    padding-top: 0 !important;
+    box-shadow: none !important;
+  }
+
 
 @media screen and (min-width:960px){
     #graph-section{
