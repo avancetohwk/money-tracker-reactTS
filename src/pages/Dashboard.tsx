@@ -19,6 +19,8 @@ import 'swiper/swiper.scss';
 import CategorySection from '../components/CategorySection';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 import "react-spring-bottom-sheet/dist/style.css";
+
+import {categories} from '../utils/lookups'
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -42,9 +44,32 @@ class Dashboard extends Component<RouteComponentProps> {
     if(this.props.location.state == undefined){
       history.push("/");
     }
-    this.getIncomeChartData(this.props.location.state);
-    this.getCategoryChartData(this.props.location.state)
-    this.getCategoryCardData(this.props.location.state);
+
+    // var spendingGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')<0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
+    //   let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
+    //   let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+    //   p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
+    //   return p
+    // },{})
+    var data = this.props.location.state as any[];
+    var allData  = data.map(c=>{
+      return {
+        date: moment(c.date,'DD/MM/YYYY'), 
+        account: c.account, 
+        amount:c.amount.toString().replace(/,/g, ''),
+        category: c.category,
+        currency: c.currency,
+        description: c.description?.trim()
+      }
+    })
+    this.setState({allData: allData},()=>{
+      
+      this.getIncomeChartData();
+      this.getCategoryChartData()
+      this.getCategoryCardData();
+    })
+    
+    
       // this.setState({allFinanceTrackings: this.props.location.state})
       // console.log(this.state)
   }
@@ -61,6 +86,7 @@ class Dashboard extends Component<RouteComponentProps> {
 
 
   state={
+    allData:null,
     wordcloudWords: null,
     incomeChartData:null,
     incomeChartLabel:null,
@@ -268,21 +294,21 @@ class Dashboard extends Component<RouteComponentProps> {
     )
   }
 
-  getIncomeChartData = (data)=>{
-    var spendingGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')<0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
-      let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
-      let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+  getIncomeChartData = ()=>{
+    var spendingGroup = this.state.allData.filter(t=>+t.amount<0 && t.date.format('YYYY') == '2019').reduce((p,c)=>{
+      let currAmount = +c.amount; //caters for thousand separated values where its a string
+      let year = c.date.format("MMM YYYY")
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
 
-    var incomeGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')>0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
-      let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
-      let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+    var incomeGroup = this.state.allData.filter(t=>+t.amount>0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
+      let currAmount = +c.amount; //caters for thousand separated values where its a string
+      let year = c.date.format("MMM YYYY")
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
-    console.log(data.filter(t=>t.amount>0))
+    console.log(this.state.allData.filter(t=>t.amount>0))
     var incomeData = Object.keys(incomeGroup).map(g=>{return incomeGroup[g]}).sort((a,b)=>{return moment(a,"MMM YYYY")<moment(b,"MMM YYYY")?-1:1 })
     var spendingsData = Object.keys(spendingGroup).map(g=>{return spendingGroup[g]}).sort((a,b)=>{return moment(a,"MMM YYYY")<moment(b,"MMM YYYY")?-1:1 })
     console.log(spendingGroup)
@@ -291,10 +317,10 @@ class Dashboard extends Component<RouteComponentProps> {
     this.setState({combinedChartData:[incomeData,spendingsData]})
   }
 
-  getCategoryChartData = (data)=>{
-    var categoryGroup = data.filter(t=>t.category == "Allowance" ).reduce((p,c)=>{
-      let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
-      let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
+  getCategoryChartData = ()=>{
+    var categoryGroup = this.state.allData.filter(t=>t.category == "Allowance" ).reduce((p,c)=>{
+      let currAmount = +c.amount; //caters for thousand separated values where its a string
+      let year = c.date.format("MMM YYYY")
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
@@ -311,7 +337,7 @@ class Dashboard extends Component<RouteComponentProps> {
     this.setState({categoryChartData:categoryData})
   }
 
-  getCategoryCardData = (data)=>{
+  getCategoryCardData = ()=>{
     var categoryCardData = {
       frequency: '334',
       amount: '1234.12',
