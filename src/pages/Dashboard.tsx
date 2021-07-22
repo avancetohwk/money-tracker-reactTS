@@ -45,18 +45,13 @@ class Dashboard extends Component<RouteComponentProps> {
       history.push("/");
     }
 
-    // var spendingGroup = data.filter(t=>+t.amount.toString().replace(/,/g, '')<0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
-    //   let currAmount = isNaN(c.amount)? +c.amount.toString().replace(/,/g, ''):+c.amount; //caters for thousand separated values where its a string
-    //   let year = moment(c.date,'DD/MM/YYYY').format("MMM YYYY")
-    //   p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
-    //   return p
-    // },{})
+   
     var data = this.props.location.state as any[];
     var allData  = data.map(c=>{
       return {
         date: moment(c.date,'DD/MM/YYYY'), 
         account: c.account, 
-        amount:c.amount.toString().replace(/,/g, ''),
+        amount:+c.amount.toString().replace(/,/g, ''),
         category: c.category,
         currency: c.currency,
         description: c.description?.trim()
@@ -68,7 +63,7 @@ class Dashboard extends Component<RouteComponentProps> {
       this.getCategoryChartData()
       this.getCategoryCardData();
     })
-    
+    this.getCategoryChipsData();
     
       // this.setState({allFinanceTrackings: this.props.location.state})
       // console.log(this.state)
@@ -94,8 +89,10 @@ class Dashboard extends Component<RouteComponentProps> {
     combinedChartData:null,
     categoryChartData:null,
     categoryCardData:null,
-    categoryChipsData:[{text:'Food'},{text:'Medical'},{text:'Allowance'},{text:'Technology'},{text:'Games'},{text:'Sports'},{text:'Shirts'},{text:'All'},{text:'Car'},{text:'Trip'},{text:'Education'}],
-    dateChipsData:[{text:"All"},{text:"Month"},{text:"Year"}]
+    categoryChipsData:null,
+    dateChipsData:[{text:"All"},{text:"Month"},{text:"Year"}],
+    selectedDate: "MMM YYYY",
+    selectedCategory: "All"
   }
 
   render() {
@@ -117,7 +114,7 @@ class Dashboard extends Component<RouteComponentProps> {
             
             <section id="graph-section">
               <div >
-                {dateChipsData? <CategoryChips data={dateChipsData} groupName="date" extraClass=""></CategoryChips>: null}
+                {dateChipsData? <CategoryChips data={dateChipsData} onChipSelected={this.onDateSelected} groupName="date" extraClass=""></CategoryChips>: null}
               </div>
               <div id="graph-card" className="neumorphism pressed" >
                 {incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
@@ -132,7 +129,7 @@ class Dashboard extends Component<RouteComponentProps> {
               defaultSnap={({ maxHeight }) => maxHeight * 0.4}
               snapPoints={({ maxHeight }) => [maxHeight * 0.4, maxHeight * 0.9]}
               footer={
-                categoryChipsData? <CategoryChips data={categoryChipsData} groupName="category" extraClass="accent"></CategoryChips>: null
+                categoryChipsData? <CategoryChips data={categoryChipsData} onChipSelected={this.onCategorySelected} groupName="category" extraClass="accent"></CategoryChips>: null
               }
             >
               <div>
@@ -294,23 +291,33 @@ class Dashboard extends Component<RouteComponentProps> {
     )
   }
 
+  getCategoryChipsData = ()=>{
+    //categoryChipsData
+    var categoryChipsData = Object.keys(categories).map(k=>{
+      return {text: categories[k].text}
+    })
+    categoryChipsData.unshift({text:"All"})
+    this.setState({categoryChipsData: categoryChipsData});
+  }
+
   getIncomeChartData = ()=>{
-    var spendingGroup = this.state.allData.filter(t=>+t.amount<0 && t.date.format('YYYY') == '2019').reduce((p,c)=>{
+    const { selectedDate} = this.state;
+    var spendingGroup = this.state.allData.filter(t=>+t.amount<0).reduce((p,c)=>{
       let currAmount = +c.amount; //caters for thousand separated values where its a string
-      let year = c.date.format("MMM YYYY")
+      let year = c.date.format(selectedDate)
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
 
-    var incomeGroup = this.state.allData.filter(t=>+t.amount>0 && moment(t.date,'DD/MM/YYYY').format('YYYY') == '2019').reduce((p,c)=>{
+    var incomeGroup = this.state.allData.filter(t=>+t.amount>0).reduce((p,c)=>{
       let currAmount = +c.amount; //caters for thousand separated values where its a string
-      let year = c.date.format("MMM YYYY")
+      let year = c.date.format(selectedDate)
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
     console.log(this.state.allData.filter(t=>t.amount>0))
-    var incomeData = Object.keys(incomeGroup).map(g=>{return incomeGroup[g]}).sort((a,b)=>{return moment(a,"MMM YYYY")<moment(b,"MMM YYYY")?-1:1 })
-    var spendingsData = Object.keys(spendingGroup).map(g=>{return spendingGroup[g]}).sort((a,b)=>{return moment(a,"MMM YYYY")<moment(b,"MMM YYYY")?-1:1 })
+    var incomeData = Object.keys(incomeGroup).map(g=>{return incomeGroup[g]}).sort((a,b)=>{return moment(a,selectedDate)<moment(b,selectedDate)?-1:1 })
+    var spendingsData = Object.keys(spendingGroup).map(g=>{return spendingGroup[g]}).sort((a,b)=>{return moment(a,selectedDate)<moment(b,selectedDate)?-1:1 })
     console.log(spendingGroup)
 
     //var incomeChartData = data.map(t=> Math.abs(t.amount))
@@ -318,9 +325,11 @@ class Dashboard extends Component<RouteComponentProps> {
   }
 
   getCategoryChartData = ()=>{
-    var categoryGroup = this.state.allData.filter(t=>t.category == "Allowance" ).reduce((p,c)=>{
+    const {selectedCategory, selectedDate} = this.state;
+    console.log(this.state.allData)
+    var categoryGroup = this.state.allData.filter(t=>(selectedCategory == "All" || t.category == selectedCategory) && t.amount<0 ).reduce((p,c)=>{
       let currAmount = +c.amount; //caters for thousand separated values where its a string
-      let year = c.date.format("MMM YYYY")
+      let year = c.date.format(selectedDate)
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
@@ -345,6 +354,18 @@ class Dashboard extends Component<RouteComponentProps> {
     }
 
     this.setState({categoryCardData:categoryCardData});
+  }
+
+
+
+  onDateSelected = (date)=>{
+
+    this.setState({selectedDate:date == "Year"? "YYYY":"MMM YYYY"},()=>{this.getCategoryChartData(); this.getIncomeChartData();});
+  }
+
+  onCategorySelected = (category)=>{
+    console.log(category)
+    this.setState({selectedCategory:category},()=>{this.getCategoryChartData(); });
   }
   
 }

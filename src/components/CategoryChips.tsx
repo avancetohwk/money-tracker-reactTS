@@ -5,7 +5,9 @@ import './CategoryChips.scss'
 export interface IChipsProps{
     data:any[],
     groupName:string,
-    extraClass: string
+    extraClass: string,
+    onChipSelected: any;
+    
 }
 
 export default class CategoryChips extends React.Component<IChipsProps>{
@@ -21,8 +23,8 @@ export default class CategoryChips extends React.Component<IChipsProps>{
                     // Return the element. Also pass key     
                     return (
                             <div className="chipContainer " key={a.text}>
-                                <input type="radio" id={'chip_'+a.text} name={this.props.groupName} value={a.text}></input>
-                                <label className={"rounded neumorphism concave " + this.props.extraClass} htmlFor={'chip_'+a.text}>{a.text}</label>
+                                <input type="radio" id={'chip_'+this.props.groupName+'_'+a.text} name={this.props.groupName} value={a.text} onChange={this.handleChange}></input>
+                                <label className={"rounded neumorphism concave " + this.props.extraClass} htmlFor={'chip_'+this.props.groupName+'_'+a.text}>{a.text}</label>
                             </div>
                         ) 
                     })}
@@ -31,5 +33,9 @@ export default class CategoryChips extends React.Component<IChipsProps>{
             
         )
         
+    }
+
+    handleChange =(e)=>{
+        this.props.onChipSelected(e.target.value);
     }
 }

@@ -113,6 +113,10 @@ export default class CategoryChart extends Component<ICategoryChartProps> {
         this.buildChart();
     }
 
+    componentDidUpdate(){
+      this.buildChart();
+    }
+
     shuffle(array) {
       var currentIndex = array.length,  randomIndex;
     

@@ -16,10 +16,10 @@
 export const categories =  {
     Allowance: {text:"Allowance", iconClass:"hand-holding-usd"},
     Books: {text:"Books", iconClass:"book"},
-    Cars: {text:"Cars", iconClass:"car"},
+    Cars: {text:"Car", iconClass:"car"},
     Clothes: {text:"Clothes", iconClass:"tshirt"},
     Communications: {text:"Communications", iconClass:"phone"},
-    EatingOut: {text:"Eating Out", iconClass:"utensils"},
+    EatingOut: {text:"Eating out", iconClass:"utensils"},
     Food: {text:"Food", iconClass:"bread-slice"},
     Games: {text:"Games", iconClass:"gamepad"},
     Medical: {text:"Medical", iconClass:"briefcase-medical"},
