@@ -89,43 +89,46 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
 
         let that = this;
         this.myChart = new Chart(myChartRef, {
-            type: "line",
+            type: "bar",
             data: {
                 datasets: [
                     {
                         label: "Spendings",
                         data: data[1],
-                        fill: true,
-                        backgroundColor:'transparent',
+                        //fill: true,
+                        backgroundColor:'rgba(255, 99, 132, 0.2)',
                     //spendingsGradientLine,
-                        tension: 0.5,
-                        borderColor: function(context) {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
+                        //tension: 0.5,
+                        // borderColor: function(context) {
+                        //     const chart = context.chart;
+                        //     const {ctx, chartArea} = chart;
                     
-                            if (!chartArea) {
-                              // This case happens on initial chart load
-                              return null;
-                            }
-                            return that.getGradient(ctx, chartArea,'#ff1919');
-                          },
+                        //     if (!chartArea) {
+                        //       // This case happens on initial chart load
+                        //       return null;
+                        //     }
+                        //     return that.getGradient(ctx, chartArea,'#ff1919');
+                        //   },
+                        borderColor:'rgb(255, 99, 132)'
                     },
                     {
                         label: "Income",
                         data: data[0],
-                        fill: true,
-                        backgroundColor:'transparent',//gradientLine,
-                        tension: 0.5,
-                        borderColor: function(context) {
-                            const chart = context.chart;
-                            const {ctx, chartArea} = chart;
+                        //fill: true,
+                        backgroundColor:'rgba(255, 205, 86, 0.5)',//gradientLine,
+                        
+                        //tension: 1,
+                        // borderColor: function(context) {
+                        //     const chart = context.chart;
+                        //     const {ctx, chartArea} = chart;
                     
-                            if (!chartArea) {
-                              // This case happens on initial chart load
-                              return null;
-                            }
-                            return that.getGradient(ctx, chartArea,'#ffbf19');
-                          },
+                        //     if (!chartArea) {
+                        //       // This case happens on initial chart load
+                        //       return null;
+                        //     }
+                        //     return that.getGradient(ctx, chartArea,'#ffbf19');
+                        //   },
+                        borderColor:'rgb(255, 205, 86)',
                     }
                     
                     
@@ -172,21 +175,33 @@ export default class CombinedChart extends Component<ICombinedChartProps> {
                 //             }
                 //         }
                 //     },
+                
                 scales: {
+                    y:{
+                        beginAtZero:true,
+                        ticks: { display: false, },
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        }
+                    },
                     xAxes: {
+                        stacked: true,
                         ticks: { display: false },
                         grid: {
                             display: false,
                             drawBorder: false
                         }
                     },
-                    yAxes: {
-                        ticks: { display: false },
-                        grid: {
-                            display: false,
-                            drawBorder: false
-                        }
-                    }
+                    // yAxes: {
+                    //     stacked: true,
+                    //     min:0,
+                    //     ticks: { display: false, },
+                    //     grid: {
+                    //         display: false,
+                    //         drawBorder: false
+                    //     }
+                    // }
                 }
                 //Customize chart options
             }

@@ -20,7 +20,7 @@ import CategorySection from '../components/CategorySection';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 import "react-spring-bottom-sheet/dist/style.css";
 
-import {categories} from '../utils/lookups'
+import {categories, dates} from '../utils/lookups'
 // import CategoryCards from '../components/CategoryCards';
 
 interface IFinanceTrackings{
@@ -47,8 +47,9 @@ class Dashboard extends Component<RouteComponentProps> {
 
    
     var data = this.props.location.state as any[];
-    var allData  = data.map(c=>{
-      return {
+    let spendingData = [],incomeData = [],allData = []
+    data.forEach(c=>{
+      let d = {
         date: moment(c.date,'DD/MM/YYYY'), 
         account: c.account, 
         amount:+c.amount.toString().replace(/,/g, ''),
@@ -56,13 +57,20 @@ class Dashboard extends Component<RouteComponentProps> {
         currency: c.currency,
         description: c.description?.trim()
       }
+      allData.push(d);
+      if(d.amount>0){
+        incomeData.push(d);
+      }else{
+        spendingData.push(d)
+      }
     })
-    this.setState({allData: allData},()=>{
+    this.setState({allData: allData, spendingData: spendingData, incomeData:incomeData},()=>{
       
       this.getIncomeChartData();
       this.getCategoryChartData()
       this.getCategoryCardData();
     })
+    this.getDateChipsData();
     this.getCategoryChipsData();
     
       // this.setState({allFinanceTrackings: this.props.location.state})
@@ -82,6 +90,8 @@ class Dashboard extends Component<RouteComponentProps> {
 
   state={
     allData:null,
+    spendingData:null,
+    incomeData:null,
     wordcloudWords: null,
     incomeChartData:null,
     incomeChartLabel:null,
@@ -89,14 +99,15 @@ class Dashboard extends Component<RouteComponentProps> {
     combinedChartData:null,
     categoryChartData:null,
     categoryCardData:null,
+    categoryListData:null,
     categoryChipsData:null,
-    dateChipsData:[{text:"All"},{text:"Month"},{text:"Year"}],
-    selectedDate: "MMM YYYY",
-    selectedCategory: "All"
+    dateChipsData:null,
+    selectedDate: dates.Month.text,
+    selectedCategory: categories.All.text
   }
 
   render() {
-    const { incomeChartData,combinedChartData,categoryChartData,categoryCardData, categoryChipsData, dateChipsData } = this.state;
+    const { incomeChartData,combinedChartData,categoryChartData,categoryCardData, categoryListData, categoryChipsData, dateChipsData } = this.state;
     console.log(categoryCardData)
     return (
         // <FileInput onFileUploaded={this._onUpload}></FileInput>
@@ -117,8 +128,14 @@ class Dashboard extends Component<RouteComponentProps> {
                 {dateChipsData? <CategoryChips data={dateChipsData} onChipSelected={this.onDateSelected} groupName="date" extraClass=""></CategoryChips>: null}
               </div>
               <div id="graph-card" className="neumorphism pressed" >
-                {incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
-                {combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
+                <div style={{height:'10%'}}>
+                  <span>RM 12,345.54</span>
+                </div>
+                <div style={{height:'90%'}}>
+                  {incomeChartData? <IncomeChart data={incomeChartData}></IncomeChart>: null}
+                  {combinedChartData? <CombinedChart data={combinedChartData}></CombinedChart>: null}
+                </div>
+                
               </div>
             </section>
             <BottomSheet
@@ -144,6 +161,48 @@ class Dashboard extends Component<RouteComponentProps> {
                     </div>
                   </div>
                   <div className=" neumorphism accent concave category-card " id="category-data-list-card">
+                    <div className="col-12 category-data-list">
+                      {categoryListData? categoryListData.map(c=>{
+                        return (
+                          <div className="row neumorphism pressed spending category-data">
+                            <div className="col-8">
+                              <span>{c.description}</span>
+                              <p>{moment(c.date).format("DD/MM/yyyy")}</p>
+                            </div>
+                            <div className="col-4 data-amount">RM {Math.abs(c.amount)}</div>
+                          </div>
+                        )
+                      }): null }
+                    </div>
+                    {/* <table className="col-12 category-data-list">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Description</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {categoryListData? categoryListData.map(c=>{
+                        return (
+                          <tr className="">
+                            <td>
+                              {moment(c.date).format("DD/MM/yyyy")}
+                            </td>
+                            <td>
+                              {c.description}
+                            </td>
+                            <td>
+                              RM {Math.abs(c.amount)}
+                            </td>
+                          </tr>
+                        )
+                      }): null }
+                      </tbody>
+                    </table> */}
+                  </div>
+                  
+                  {/* <div className=" neumorphism accent concave category-card " id="category-data-list-card">
                   <div className="col-12 category-data-list">
                       <div className="row neumorphism pressed spending category-data">
                         <div className="col-8">
@@ -193,7 +252,7 @@ class Dashboard extends Component<RouteComponentProps> {
                         <div className="col-4 data-amount">RM 23.44</div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
               </div>
               
               
@@ -296,28 +355,34 @@ class Dashboard extends Component<RouteComponentProps> {
     var categoryChipsData = Object.keys(categories).map(k=>{
       return {text: categories[k].text}
     })
-    categoryChipsData.unshift({text:"All"})
     this.setState({categoryChipsData: categoryChipsData});
+  }
+
+  getDateChipsData = ()=>{
+    var dateChipsData = Object.keys(dates).map(k=>{
+      return {text: dates[k].text}
+    })
+    this.setState({dateChipsData: dateChipsData});
   }
 
   getIncomeChartData = ()=>{
     const { selectedDate} = this.state;
-    var spendingGroup = this.state.allData.filter(t=>+t.amount<0).reduce((p,c)=>{
+    let spendingGroup = this.state.spendingData.reduce((p,c)=>{
       let currAmount = +c.amount; //caters for thousand separated values where its a string
-      let year = c.date.format(selectedDate)
+      let year = c.date.format(dates[selectedDate].format)
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
 
-    var incomeGroup = this.state.allData.filter(t=>+t.amount>0).reduce((p,c)=>{
+    let incomeGroup = this.state.incomeData.reduce((p,c)=>{
       let currAmount = +c.amount; //caters for thousand separated values where its a string
-      let year = c.date.format(selectedDate)
+      let year = c.date.format(dates[selectedDate].format)
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
     console.log(this.state.allData.filter(t=>t.amount>0))
-    var incomeData = Object.keys(incomeGroup).map(g=>{return incomeGroup[g]}).sort((a,b)=>{return moment(a,selectedDate)<moment(b,selectedDate)?-1:1 })
-    var spendingsData = Object.keys(spendingGroup).map(g=>{return spendingGroup[g]}).sort((a,b)=>{return moment(a,selectedDate)<moment(b,selectedDate)?-1:1 })
+    let incomeData = Object.keys(incomeGroup).map(g=>{return incomeGroup[g]}).sort((a,b)=>{return moment(a,dates[selectedDate].format)<moment(b,dates[selectedDate].format)?-1:1 })
+    let spendingsData = Object.keys(spendingGroup).map(g=>{return spendingGroup[g]}).sort((a,b)=>{return moment(a,dates[selectedDate].format)<moment(b,dates[selectedDate].format)?-1:1 })
     console.log(spendingGroup)
 
     //var incomeChartData = data.map(t=> Math.abs(t.amount))
@@ -326,24 +391,21 @@ class Dashboard extends Component<RouteComponentProps> {
 
   getCategoryChartData = ()=>{
     const {selectedCategory, selectedDate} = this.state;
-    console.log(this.state.allData)
-    var categoryGroup = this.state.allData.filter(t=>(selectedCategory == "All" || t.category == selectedCategory) && t.amount<0 ).reduce((p,c)=>{
+    let categoryData = this.state.spendingData.filter(t=>selectedCategory == categories.All.text || t.category == selectedCategory);
+    console.log(categoryData)
+    let categoryGroup = categoryData.reduce((p,c)=>{
       let currAmount = +c.amount; //caters for thousand separated values where its a string
-      let year = c.date.format(selectedDate)
+      let year = c.date.format(dates[selectedDate].format)
       p[year] = p[year]? {x:year, y: p[year].y+=  Math.abs(currAmount)} : {x:year, y:  Math.abs(currAmount)};
       return p
     },{})
 
-    console.log(categoryGroup)
-    var values = [];
-    var labels=[];
+    let values = [],labels = [];
     Object.keys(categoryGroup).forEach(g=>{
       values.push(categoryGroup[g].y)
       labels.push(g)
     })
-    var categoryData = {values:values, labels:labels};
-    console.log(categoryData)
-    this.setState({categoryChartData:categoryData})
+    this.setState({categoryChartData: {values:values, labels:labels}, categoryListData: categoryData})
   }
 
   getCategoryCardData = ()=>{
@@ -356,11 +418,15 @@ class Dashboard extends Component<RouteComponentProps> {
     this.setState({categoryCardData:categoryCardData});
   }
 
+  getCategoryDataList = (categoryData)=>{
+  
+  }
+
 
 
   onDateSelected = (date)=>{
 
-    this.setState({selectedDate:date == "Year"? "YYYY":"MMM YYYY"},()=>{this.getCategoryChartData(); this.getIncomeChartData();});
+    this.setState({selectedDate: date},()=>{this.getCategoryChartData(); this.getIncomeChartData();});
   }
 
   onCategorySelected = (category)=>{

@@ -14,6 +14,7 @@
 
 
 export const categories =  {
+    All :{text:"All", iconClass:"hand-holding-usd"},
     Allowance: {text:"Allowance", iconClass:"hand-holding-usd"},
     Books: {text:"Books", iconClass:"book"},
     Cars: {text:"Car", iconClass:"car"},
@@ -22,6 +23,7 @@ export const categories =  {
     EatingOut: {text:"Eating out", iconClass:"utensils"},
     Food: {text:"Food", iconClass:"bread-slice"},
     Games: {text:"Games", iconClass:"gamepad"},
+
     Medical: {text:"Medical", iconClass:"briefcase-medical"},
     Movie: {text:"Movie", iconClass:"film"},
     Music: {text:"Music", iconClass:"headphones-alt"},
@@ -30,4 +32,9 @@ export const categories =  {
     Transport: {text:"Transport", iconClass:"bus-alt"},
     Trip: {text:"Trip", iconClass:"umbrella-beach"},
 
+}
+
+export const dates = {
+    Month: {text: "Month", format: "MMM YYYY"},
+    Year: {text: "Year", format: "YYYY"},
 }
